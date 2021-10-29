@@ -11,22 +11,22 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import com.example.autobartender.R;
-import com.example.autobartender.databinding.FragmentGalleryBinding;
+import com.example.autobartender.databinding.FragmentRecipeGalleryBinding;
 
 public class GalleryFragment extends Fragment {
 
     private GalleryViewModel galleryViewModel;
-private FragmentGalleryBinding binding;
+private FragmentRecipeGalleryBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
             ViewGroup container, Bundle savedInstanceState) {
         galleryViewModel =
                 new ViewModelProvider(this).get(GalleryViewModel.class);
 
-    binding = FragmentGalleryBinding.inflate(inflater, container, false);
+    binding = FragmentRecipeGalleryBinding.inflate(inflater, container, false);
     View root = binding.getRoot();
 
-        final TextView textView = binding.textGallery;
+        final TextView textView = binding.textRecipeGallery;
         galleryViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
