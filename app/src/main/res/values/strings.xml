@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Auto Bartender</string>
 
-<!--    Menu bar labels and info-->
+    <!--    Menu bar labels and info-->
     <string name="nav_header_title">[Menu title]</string>
     <string name="nav_header_subtitle">[Menu subtitle]</string>
     <string name="nav_header_desc">[Menu description]</string>
@@ -15,4 +15,9 @@
     <string name="menu_slideshow">Slideshow</string>
 
     <string name="meme">List item. theres a way to define xml list items so that we can just have one with like img and txt repeated a bunch and we just fill it out with whatever info is appropriate. Ideally that list item is reusable enough that we can use the same thing whether we\'re listing by recent drinks, or users favorites, or just the whole library of recipes. each one would come with different info but we can fill that in however is appropriate</string>
+    <string name="title_activity_order_info">OrderInfo</string>
+    <string name="default_title">Title</string>
+    <string name="default_description">Descriptoin</string>
+    <string name="order_button">Order this drink now</string>
+    <string name="edit">Edit</string>
 </resources>
