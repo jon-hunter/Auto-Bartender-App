@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <recipe name="name" desc="desc">
+        <ingredient id="VODKA" name="Vodka" qty="750"/>
+        <ingredient id="FRUIT_PUNCH" name="Fruit punch" qty="2750"/>
+    </recipe>
+    <recipe name="Rum and Coke" desc="desc">
+        <ingredient id="RUM" name="Rum" qty="100"/>
+        <ingredient id="COKE" name="Coke" qty="800"/>
+    </recipe>
+</resources>
