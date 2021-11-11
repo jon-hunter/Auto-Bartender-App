@@ -1,4 +1,4 @@
-package com.example.autobartender.ui.gallery;
+package com.example.autobartender.ui.recipe_gallery;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

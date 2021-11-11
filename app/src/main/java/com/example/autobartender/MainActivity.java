@@ -1,5 +1,6 @@
 package com.example.autobartender;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
@@ -13,6 +14,9 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.autobartender.databinding.ActivityMainBinding;
 
@@ -20,6 +24,10 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+
+    // Listview stuff
+    RecyclerView rv;
+    RecyclerView_Adapter rva;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +44,24 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        // Recyclerview stuff
+        rv = findViewById(R.id.rvRecipes);
+        rva = new RecyclerView_Adapter(this);
+        rv.setAdapter(rva);
+        GridLayoutManager layoutManager = new GridLayoutManager(
+                this,
+                1,
+                LinearLayoutManager.VERTICAL,
+                false
+        );
+        // Optionally customize the position you want to default scroll to
+        layoutManager.scrollToPosition(0);
+        // Attach layout manager to the RecyclerView
+        rv.setLayoutManager(layoutManager);
+
+
+
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
@@ -44,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
                 .setOpenableLayout(drawer)
                 .build();
+
+        // Navigation stuff i dont understand
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
@@ -56,10 +84,14 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
+    /**
+     * Onclick handler for list item. when the item is clicked, launch orderInfo Activity/fragment dude idk
+     * @param view the list item ig
+     */
+    public void launch_order_info(View view) {
+        //TODO set some parameter somewhere so the app knows what drink was chosen. Orderinfo will use that to populate information
+
+        Intent intent = new Intent(this, OrderInfo.class);
+        startActivity(intent);
     }
 }
