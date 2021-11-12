@@ -26,8 +26,6 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
 
     // Listview stuff
-    RecyclerView rv;
-    RecyclerView_Adapter rva;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,20 +43,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Recyclerview stuff
-        rv = findViewById(R.id.rvRecipes);
-        rva = new RecyclerView_Adapter(this);
-        rv.setAdapter(rva);
-        GridLayoutManager layoutManager = new GridLayoutManager(
-                this,
-                1,
-                LinearLayoutManager.VERTICAL,
-                false
-        );
-        // Optionally customize the position you want to default scroll to
-        layoutManager.scrollToPosition(0);
-        // Attach layout manager to the RecyclerView
-        rv.setLayoutManager(layoutManager);
+
 
 
 
