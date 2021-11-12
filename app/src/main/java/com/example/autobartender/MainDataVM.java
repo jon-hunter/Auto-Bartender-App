@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import androidx.lifecycle.ViewModel;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -16,13 +17,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class MainDataVM extends ViewModel {
-
-    private final String TAG = "MainDataVM";  // For log.
+    private static final String TAG = "MainDataVM";  // For log.
 
     // Variables go here
 
     // Recipe DB variables - string keys.
-    public JSONObject recipeDB;
+    public JSONArray recipeDB;
     public final String ID = "id";
     public final String NAME = "name";
     public final String DESCRIPTION = "desc";

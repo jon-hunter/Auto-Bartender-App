@@ -1,6 +1,7 @@
 package com.example.autobartender;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.autobartender.databinding.ActivityMainBinding;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,7 +30,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity {
-    private final String TAG = "MainActivity";
+    private static final String TAG = "MainActivity";
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
@@ -114,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             // Read the JSON
-            vm.recipeDB = new JSONObject(json_str.toString());
+            vm.recipeDB = new JSONArray(json_str.toString());
         }
         catch (IOException e) {
             Log.d(TAG, "loadRecipeDb: IOexception oops");
