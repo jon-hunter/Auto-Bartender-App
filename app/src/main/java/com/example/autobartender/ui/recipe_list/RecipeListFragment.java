@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.autobartender.MainDataVM;
 import com.example.autobartender.R;
 import com.example.autobartender.RecyclerView_Adapter;
 import com.example.autobartender.databinding.FragmentRecipeListBinding;
@@ -44,7 +45,7 @@ public class RecipeListFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         // Init the recyclerview
          rv=getActivity().findViewById(R.id.rvRecipeList);
-         rva = new RecyclerView_Adapter(this.context);
+         rva = new RecyclerView_Adapter(this.context, new ViewModelProvider(this).get(MainDataVM.class));
          rv.setAdapter(rva);
 
         GridLayoutManager layoutManager = new GridLayoutManager(

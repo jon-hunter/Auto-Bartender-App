@@ -1,0 +1,80 @@
+{
+  "BEACH_PUNCH": {
+    "id": "BEACH_PUNCH",
+    "name": "Bennett's Beach Punch",
+    "desc": "a lovely drink for when you're on a boat. This recipe was meant to be made in the punch jug but it can be adapted.",
+    "ingr": [
+      {
+        "index": 1,
+        "id": "VODKA",
+        "qty": 750
+      },
+      {
+        "index": 0,
+        "id": "FRUIT_PUNCH",
+        "qty": 2750
+      }
+    ]
+  },
+  "RUM_COKE": {
+    "id": "RUM_COKE",
+    "name": "Rum and Coke",
+    "desc": "A classic drink, made with two great ingredients, which we like a lot and are very good together. I have never had a rum and coke and I don't know the recipe so I just made it up.",
+    "ingr": [
+      {
+        "index": 0,
+        "id": "RUM",
+        "qty": 90
+      },
+      {
+        "index": 1,
+        "id": "COKE",
+        "qty": 450
+      }
+    ]
+  },
+  "DEMO_1": {
+    "id": "POISON",
+    "name": "Oops! all Alcohol",
+    "desc": "I dont know many recipes so this one isnt real. I'm just going to list a buynch of ingredients and really hope you don't try to mix them together because that might be really bad. Do not drink this recipe.",
+    "ingr": [
+      {
+        "index": 0,
+        "id": "VODKA",
+        "qty": 120
+      },
+      {
+        "index": 1,
+        "id": "TEQUILA",
+        "qty": 120
+      },
+      {
+        "index": 2,
+        "id": "RUM",
+        "qty": 120
+      },
+      {
+        "index": 3,
+        "id": "GIN",
+        "qty": 120
+      }
+    ]
+  },
+  "MIMOSA": {
+    "id": "MIMOSA",
+    "name": "Vodka Mimosa",
+    "desc": "A regular mimosa except its just vodka instead of champagne.",
+    "ingr": [
+      {
+        "index": 0,
+        "id": "VODKA",
+        "qty": 90
+      },
+      {
+        "index": 1,
+        "id": "OJ",
+        "qty": 400
+      }
+    ]
+  }
+}

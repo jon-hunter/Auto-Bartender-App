@@ -16,10 +16,10 @@ public class RecyclerView_Adapter extends RecyclerView.Adapter {
     private final Context ctx;
     private final int numRows;
 
-    public RecyclerView_Adapter(Context ctx){
+    public RecyclerView_Adapter(Context ctx, MainDataVM vm){
         this.ctx=ctx;
         this.li=(LayoutInflater)ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.numRows = 3;
+        this.numRows = vm.getNumRecipes();
         //TODO figure out how many recipes there are and put that in
     }
 
@@ -36,7 +36,7 @@ public class RecyclerView_Adapter extends RecyclerView.Adapter {
         //TODO fill in specific data (find info from somewhere lol idk) and image
         RowViewHolder vh = (RowViewHolder) holder;
         vh.tvTitle.setText("[specific drink title]");
-        vh.tvDescription.setText("[if you are reading this then the code works]");
+        vh.tvDescription.setText("[if you are reading this then the code works]" + position);
     }
 
     @Override
