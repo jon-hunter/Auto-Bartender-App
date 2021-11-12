@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AutoBartender">
         <activity
-            android:name=".OrderInfo"
+            android:name=".OrderInfoActivity"
             android:exported="true"
             android:label="@string/title_activity_order_info"
             android:theme="@style/Theme.AutoBartender.NoActionBar" />

@@ -3,7 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/gameh/Documents/School/CPEN_498/Auto-Bartender-App/app/src/main/res/layout/activity_main.xml" value="0.5507246376811594" />
         <entry key="..\:/Users/gameh/Documents/School/CPEN_498/Auto-Bartender-App/app/src/main/res/layout/activity_order_info.xml" value="0.3671875" />
+        <entry key="..\:/Users/gameh/Documents/School/CPEN_498/Auto-Bartender-App/app/src/main/res/layout/content_main.xml" value="0.5507246376811594" />
+        <entry key="..\:/Users/gameh/Documents/School/CPEN_498/Auto-Bartender-App/app/src/main/res/layout/drink_list_item.xml" value="0.2695035460992908" />
+        <entry key="..\:/Users/gameh/Documents/School/CPEN_498/Auto-Bartender-App/app/src/main/res/layout/fragment_recipe_list.xml" value="0.2695035460992908" />
         <entry key="..\:/Users/gameh/Documents/School/CPEN_498/AutoBartender/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.5703125" />
         <entry key="..\:/Users/gameh/Documents/School/CPEN_498/AutoBartender/app/src/main/res/drawable/ic_menu_gallery.xml" value="0.5703125" />
         <entry key="..\:/Users/gameh/Documents/School/CPEN_498/AutoBartender/app/src/main/res/drawable/side_nav_bar.xml" value="0.41759259259259257" />

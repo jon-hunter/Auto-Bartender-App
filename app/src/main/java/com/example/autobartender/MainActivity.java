@@ -1,5 +1,6 @@
 package com.example.autobartender;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
@@ -61,5 +62,18 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    /**
+     * onclick handler for recipe_list items
+     * @param view
+     */
+    public void launch_order_info(View view) {
+        //TODO figure out which list element was clicked
+        //TODO then set a value in the dataVM
+
+        //TODO finally launch OrderInfo activity, which will know which drink to display thanks to ^
+        Intent intent = new Intent(this, OrderInfoActivity.class);
+        startActivity(intent);
     }
 }
