@@ -19,12 +19,13 @@ public class RecyclerView_Adapter extends RecyclerView.Adapter {
 
     private final LayoutInflater li;
     private final Context ctx;
-    private MainDataVM vm;
+    private MainDataSingleton vm;
 
-    public RecyclerView_Adapter(Context ctx, MainDataVM vm){
+
+    public RecyclerView_Adapter(Context ctx){
         this.ctx=ctx;
         this.li=(LayoutInflater)ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.vm = vm;
+        this.vm = MainDataSingleton.getInstance();
     }
 
     @NonNull
@@ -40,7 +41,8 @@ public class RecyclerView_Adapter extends RecyclerView.Adapter {
         //TODO fill in specific data (find info from somewhere lol idk) and image
         RowViewHolder vh = (RowViewHolder) holder;
         try {
-            JSONObject recipe = vm.recipeDB.getJSONObject(position);
+            JSONObject recipe = vm.getRecipe(position, MainDataSingleton.RecipeSortOrder.DEFAULT);
+            //TODO: make the order parameterized so this list can be populated differently
             vh.tvTitle.setText(recipe.getString(vm.NAME));
             vh.tvDescription.setText(recipe.getString(vm.DESCRIPTION));
 
@@ -55,7 +57,12 @@ public class RecyclerView_Adapter extends RecyclerView.Adapter {
         return this.vm.getNumRecipes();
     }
 
-    class RowViewHolder extends RecyclerView.ViewHolder {
+//    public interface RecyclerViewClickListener {
+//        public void recyclerViewListClicked(View v, int position);
+//    }
+
+
+    class RowViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tvTitle;
         TextView tvDescription;
         ImageView ivThumbnail;
@@ -65,6 +72,11 @@ public class RecyclerView_Adapter extends RecyclerView.Adapter {
             this.tvTitle = (TextView)itemView.findViewById(R.id.title);
             this.tvDescription = (TextView)itemView.findViewById(R.id.description);
             this.ivThumbnail = (ImageView) itemView.findViewById(R.id.thumbnail);
+        }
+
+        @Override
+        public void onClick(View v) {
+
         }
     }
 }

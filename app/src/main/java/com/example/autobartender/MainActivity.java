@@ -1,15 +1,13 @@
 package com.example.autobartender;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -34,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
-    private MainDataVM vm;
+    private MainDataSingleton vm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +42,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
-//        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
@@ -64,10 +55,22 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
         // Get the ViewModel
-        vm = new ViewModelProvider(this).get(MainDataVM.class);
+        vm = MainDataSingleton.getInstance();
         if (vm.recipeDB == null) {
             loadRecipeDb();
         }
+
+        //LiveData observer
+        final Observer<JSONObject> recipeChoiceObserver = new Observer<JSONObject>() {
+            @Override
+            public void onChanged(JSONObject jsonObject) { launchOrderInfoActivity(); }
+        };
+        vm.getRecipeChoice().observe(this, recipeChoiceObserver);
+    }
+
+    private void launchOrderInfoActivity() {
+        Intent intent = new Intent(this, OrderInfoActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -82,20 +85,6 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
-    }
-
-    /**
-     * onclick handler for recipe_list items
-     * @param view
-     */
-    public void launch_order_info(View view) {
-        //TODO figure out which list element was clicked
-        Log.d(TAG, "launch_order_info: view clicked: " + view.getId());
-        //TODO then set a value in the dataVM
-
-        //TODO finally launch OrderInfo activity, which will know which drink to display thanks to ^
-        Intent intent = new Intent(this, OrderInfoActivity.class);
-        startActivity(intent);
     }
 
 
