@@ -25,7 +25,7 @@ public class MainDataSingleton {
     private static final String TAG = "MainDataVM";  // For log.
 
     // Variables go here
-    private MutableLiveData<JSONObject> recipeChoice;
+    private MutableLiveData<JSONObject> recipeChoice = new MutableLiveData<JSONObject>();
     public MutableLiveData<JSONObject> getRecipeChoice() {
         return recipeChoice;
     };
@@ -83,12 +83,10 @@ public class MainDataSingleton {
 
     /**
      * onclick handler for recipe_list items
-     * @param view
+     * @param index the index in the list
      */
-    public void launch_order_info(View view, int index) {
-        //TODO figure out which list element was clicked
-        Log.d(TAG, "launch_order_info: view clicked: " + view.getId());
-        Log.d(TAG, "launch_order_info: view clicked txt: " + view.getTag());
+    public void launch_order_info(int index) {
+        Log.d(TAG, "launch_order_info: index clicked: " + index);
 
         // post value, observer handles launching activity.
         this.recipeChoice.postValue(this.getRecipe(index, RecipeSortOrder.DEFAULT));

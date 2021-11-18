@@ -76,7 +76,7 @@ public class RecyclerView_Adapter extends RecyclerView.Adapter {
 
         @Override
         public void onClick(View v) {
-
+            vm.launch_order_info(this.getLayoutPosition());
         }
     }
 }

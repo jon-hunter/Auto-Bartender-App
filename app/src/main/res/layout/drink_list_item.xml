@@ -5,8 +5,7 @@
     android:layout_height="wrap_content"
     android:background="@color/design_default_color_primary"
     android:padding="8dp"
-    android:layout_margin="8dp"
-    android:onClick="launch_order_info">
+    android:layout_margin="8dp">
 
     <ImageView
         android:id="@+id/thumbnail"
