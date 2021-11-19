@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -40,6 +41,7 @@ public class RecyclerView_Adapter extends RecyclerView.Adapter {
 
         //TODO fill in specific data (find info from somewhere lol idk) and image
         RowViewHolder vh = (RowViewHolder) holder;
+
         try {
             JSONObject recipe = vm.getRecipe(position, MainDataSingleton.RecipeSortOrder.DEFAULT);
             //TODO: make the order parameterized so this list can be populated differently
@@ -62,7 +64,7 @@ public class RecyclerView_Adapter extends RecyclerView.Adapter {
 //    }
 
 
-    class RowViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class RowViewHolder extends RecyclerView.ViewHolder {
         TextView tvTitle;
         TextView tvDescription;
         ImageView ivThumbnail;
@@ -74,9 +76,9 @@ public class RecyclerView_Adapter extends RecyclerView.Adapter {
             this.ivThumbnail = (ImageView) itemView.findViewById(R.id.thumbnail);
         }
 
-        @Override
-        public void onClick(View v) {
-
-        }
+//        @Override
+//        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//            Log.d(TAG, "onItemClick: view clicked: pos, id: " + position + ", " + id);
+//        }
     }
 }

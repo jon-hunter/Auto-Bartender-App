@@ -2,9 +2,11 @@ package com.example.autobartender.ui.recipe_list;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -22,6 +24,7 @@ import com.example.autobartender.databinding.FragmentRecipeListBinding;
 
 public class RecipeListFragment extends Fragment {
 
+    private static final String TAG = "RecipeListFragment";
     private RecipeListViewModel galleryViewModel;
     private FragmentRecipeListBinding binding;
     private Context context;
@@ -41,9 +44,20 @@ public class RecipeListFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         // Init the recyclerview
-         rv=getActivity().findViewById(R.id.rvRecipeList);
-         rva = new RecyclerView_Adapter(this.context);
-         rv.setAdapter(rva);
+        rv = getActivity().findViewById(R.id.rvRecipeList);
+        rva = new RecyclerView_Adapter(this.context);
+        rv.setAdapter(rva);
+        // Set its click listener
+        AdapterView.OnItemClickListener messageClickedHandler = new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView parent, View v, int position, long id) {
+                Log.d(TAG, "onItemClick: position: " + position);
+            }
+        };
+
+        rv.setOnItemClickListener(messageClickedHandler);
+        //TODO very upset that recyclerview doesnt implement this.
+        //TODO see https://stackoverflow.com/a/24933117 for possible answer
+        //TODO if that doesnt work then very carefully convert recyclerview to listview
 
         GridLayoutManager layoutManager = new GridLayoutManager(
                 this.context,
