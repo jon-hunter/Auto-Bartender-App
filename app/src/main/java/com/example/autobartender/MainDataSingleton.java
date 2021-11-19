@@ -25,7 +25,7 @@ public class MainDataSingleton {
     private static final String TAG = "MainDataVM";  // For log.
 
     // Variables go here
-    private MutableLiveData<JSONObject> recipeChoice;
+    private MutableLiveData<JSONObject> recipeChoice = new MutableLiveData<JSONObject>();
     public MutableLiveData<JSONObject> getRecipeChoice() {
         return recipeChoice;
     };
@@ -43,9 +43,7 @@ public class MainDataSingleton {
         DEFAULT, RECENT
     }
 
-    private MainDataSingleton() {
-
-    }
+    private MainDataSingleton() { }
 
     public static MainDataSingleton getInstance() {
         if (instance != null)
