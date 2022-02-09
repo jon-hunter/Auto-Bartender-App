@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_recipe_list, R.id.nav_inv_stats)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -63,12 +64,12 @@ public class MainActivity extends AppCompatActivity {
         //LiveData observer
         final Observer<JSONObject> recipeChoiceObserver = new Observer<JSONObject>() {
             @Override
-            public void onChanged(JSONObject jsonObject) { launchOrderInfoActivity(); }
+            public void onChanged(JSONObject jsonObject) { launchOrderInfoActivity(null); }
         };
         vm.getRecipeChoice().observe(this, recipeChoiceObserver);
     }
 
-    private void launchOrderInfoActivity() {
+    public void launchOrderInfoActivity(View v) {
         Intent intent = new Intent(this, OrderInfoActivity.class);
         startActivity(intent);
     }
@@ -115,4 +116,5 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "loadRecipeDb: Bro the fuckin db threw a json error. its literally not a file that ever changes so you should check that");
         }
     }
+
 }

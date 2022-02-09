@@ -3,16 +3,17 @@
     "id": "BEACH_PUNCH",
     "name": "Bennett's Beach Punch",
     "desc": "a lovely drink for when you're on a boat. This recipe was meant to be made in the punch jug but it can be adapted.",
+    "img": "beach_punch.png",
     "ingr": [
-      {
-        "index": 1,
-        "id": "VODKA",
-        "qty": 750
-      },
       {
         "index": 0,
         "id": "FRUIT_PUNCH",
         "qty": 2750
+      },
+      {
+        "index": 1,
+        "id": "VODKA",
+        "qty": 750
       }
     ]
   },

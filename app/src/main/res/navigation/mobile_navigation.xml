@@ -3,23 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_inv_stats">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.example.autobartender.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
-
-    <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_recipe_list"
         android:name="com.example.autobartender.ui.recipe_list.RecipeListFragment"
-        android:label="@string/menu_recipe_list"
+        android:label="@string/title_activity_recipe_list"
         tools:layout="@layout/fragment_recipe_list" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.autobartender.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_inv_stats"
+        android:name="com.example.autobartender.ui.inv_status.InvStatsFragment"
+        android:label="@string/title_activity_inv_stats"
+        tools:layout="@layout/fragment_inv_stats" />
 </navigation>

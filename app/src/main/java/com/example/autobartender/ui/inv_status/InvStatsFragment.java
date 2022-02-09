@@ -1,4 +1,4 @@
-package com.example.autobartender.ui.home;
+package com.example.autobartender.ui.inv_status;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,24 +10,24 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import com.example.autobartender.R;
-import com.example.autobartender.databinding.FragmentHomeBinding;
 
-public class HomeFragment extends Fragment {
+import com.example.autobartender.databinding.FragmentInvStatsBinding;
 
-    private HomeViewModel homeViewModel;
-private FragmentHomeBinding binding;
+public class InvStatsFragment extends Fragment {
+
+    private InvStatsViewModel invStatsViewModel;
+private FragmentInvStatsBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
             ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
+        invStatsViewModel =
+                new ViewModelProvider(this).get(InvStatsViewModel.class);
 
-    binding = FragmentHomeBinding.inflate(inflater, container, false);
+    binding = FragmentInvStatsBinding.inflate(inflater, container, false);
     View root = binding.getRoot();
 
-        final TextView textView = binding.textHome;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        final TextView textView = binding.textInvStatus;
+        invStatsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

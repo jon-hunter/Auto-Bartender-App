@@ -1,16 +1,16 @@
-package com.example.autobartender.ui.home;
+package com.example.autobartender.ui.inv_status;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class HomeViewModel extends ViewModel {
+public class InvStatsViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public HomeViewModel() {
+    public InvStatsViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+//        mText.setValue("This is slideshow fragment");
     }
 
     public LiveData<String> getText() {

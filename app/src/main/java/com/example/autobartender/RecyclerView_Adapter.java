@@ -62,7 +62,7 @@ public class RecyclerView_Adapter extends RecyclerView.Adapter {
 //    }
 
 
-    class RowViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class RowViewHolder extends RecyclerView.ViewHolder {//implements View.OnClickListener {
         TextView tvTitle;
         TextView tvDescription;
         ImageView ivThumbnail;
@@ -73,10 +73,10 @@ public class RecyclerView_Adapter extends RecyclerView.Adapter {
             this.tvDescription = (TextView)itemView.findViewById(R.id.description);
             this.ivThumbnail = (ImageView) itemView.findViewById(R.id.thumbnail);
         }
-
-        @Override
-        public void onClick(View v) {
-
-        }
+//
+//        @Override
+//        public void onClick(View v) {
+//
+//        }
     }
 }
