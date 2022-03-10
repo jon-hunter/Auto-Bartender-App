@@ -9,14 +9,11 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.autobartender.MainDataSingleton;
 import com.example.autobartender.R;
-import com.example.autobartender.RecyclerView_Adapter;
 import com.example.autobartender.databinding.FragmentRecipeListBinding;
 
 
@@ -24,16 +21,14 @@ public class RecipeListFragment extends Fragment {
 
     private RecipeListViewModel galleryViewModel;
     private FragmentRecipeListBinding binding;
-    private Context context;
 
     private RecyclerView rv;
-    private RecyclerView_Adapter rva;
+    private RecipeView_RVA rva;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         this.galleryViewModel = new ViewModelProvider(this).get(RecipeListViewModel.class);
         this.binding = FragmentRecipeListBinding.inflate(inflater, container, false);
-        this.context = container.getContext();
 
         return binding.getRoot();
     }
@@ -42,11 +37,11 @@ public class RecipeListFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         // Init the recyclerview
          rv=getActivity().findViewById(R.id.rvRecipeList);
-         rva = new RecyclerView_Adapter(this.context);
+         rva = new RecipeView_RVA(view.getContext());
          rv.setAdapter(rva);
 
         GridLayoutManager layoutManager = new GridLayoutManager(
-                this.context,
+                view.getContext(),
                 1,
                 LinearLayoutManager.VERTICAL,
                 false

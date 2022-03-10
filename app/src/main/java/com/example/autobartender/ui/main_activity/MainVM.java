@@ -1,26 +1,16 @@
-package com.example.autobartender;
+package com.example.autobartender.ui.main_activity;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
-public class MainDataSingleton {
-    private static MainDataSingleton instance = null;
+public class MainVM {
+    private static MainVM instance = null;
 
     private static final String TAG = "MainDataVM";  // For log.
 
@@ -43,13 +33,13 @@ public class MainDataSingleton {
         DEFAULT, RECENT
     }
 
-    private MainDataSingleton() { }
+    private MainVM() { }
 
-    public static MainDataSingleton getInstance() {
+    public static MainVM getInstance() {
         if (instance != null)
             return instance;
 
-        instance = new MainDataSingleton();
+        instance = new MainVM();
         return instance;
     }
 
@@ -68,12 +58,25 @@ public class MainDataSingleton {
         return recipeDB.length();
     }
 
+
+    public JSONObject getRecipe(String recipeID) {
+        try {
+            for (int i = 0; i < this.recipeDB.length(); i++) {
+                if (this.recipeDB.getJSONObject(i).getString(ID).equals(recipeID)) {
+                    return this.recipeDB.getJSONObject(i);
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public JSONObject getRecipe(int index, RecipeSortOrder order) {
         try {
             return recipeDB.getJSONObject(index);
         } catch (JSONException e) {
             e.printStackTrace();
-            Log.d(TAG, "getRecipeDefaultOrder: index out of bounds.");
         }
         return null;
     }
@@ -81,15 +84,11 @@ public class MainDataSingleton {
 
     /**
      * onclick handler for recipe_list items
-     * @param view
+     * @param recipeID: which recipe selected
      */
-    public void launch_order_info(View view, int index) {
-        //TODO figure out which list element was clicked
-        Log.d(TAG, "launch_order_info: view clicked: " + view.getId());
-        Log.d(TAG, "launch_order_info: view clicked txt: " + view.getTag());
-
-        // post value, observer handles launching activity.
-        this.recipeChoice.postValue(this.getRecipe(index, RecipeSortOrder.DEFAULT));
+    public void launch_recipe_order_info(String recipeID) {
+        // post value, observer in mainActivity launches activity on livedata update.
+        this.recipeChoice.postValue(this.getRecipe(recipeID));
     }
 
 

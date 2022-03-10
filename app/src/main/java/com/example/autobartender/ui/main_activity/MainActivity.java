@@ -1,23 +1,20 @@
-package com.example.autobartender;
+package com.example.autobartender.ui.main_activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 
-import com.google.android.material.navigation.NavigationView;
 
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.autobartender.OrderInfoActivity;
+import com.example.autobartender.R;
 import com.example.autobartender.databinding.ActivityMainBinding;
+import com.example.autobartender.ui.inventory_monitor.InventoryStatusFragment;
+import com.example.autobartender.ui.recipe_list.RecipeListFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,32 +28,24 @@ import java.io.InputStreamReader;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
-    private AppBarConfiguration mAppBarConfiguration;
-    private ActivityMainBinding binding;
-    private MainDataSingleton vm;
+    private MainVM vm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        com.example.autobartender.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        setSupportActionBar(binding.appBarMain.toolbar);
-        DrawerLayout drawer = binding.drawerLayout;
-        NavigationView navigationView = binding.navView;
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_recipe_list, R.id.nav_inv_stats)
-                .setOpenableLayout(drawer)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
+        // Setup fragments
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_container, new InventoryStatusFragment());
+        ft.commit();
+
+
 
         // Get the ViewModel
-        vm = MainDataSingleton.getInstance();
+        vm = MainVM.getInstance();
         if (vm.recipeDB == null) {
             loadRecipeDb();
         }
@@ -64,31 +53,32 @@ public class MainActivity extends AppCompatActivity {
         //LiveData observer
         final Observer<JSONObject> recipeChoiceObserver = new Observer<JSONObject>() {
             @Override
-            public void onChanged(JSONObject jsonObject) { launchOrderInfoActivity(null); }
+            public void onChanged(JSONObject jsonObject) { launchOrderInfoActivity(); }
         };
         vm.getRecipeChoice().observe(this, recipeChoiceObserver);
     }
 
-    public void launchOrderInfoActivity(View v) {
+    //Navigation functions. These are event handlers (click or otherwise), either launching an activity or swapping out the main fragment view
+    public void launchOrderInfoActivity() {
         Intent intent = new Intent(this, OrderInfoActivity.class);
         startActivity(intent);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+    public void launchRecipeListFragment(View v) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_container, new RecipeListFragment());
+        ft.commit();
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
+    public void launchInventoryStatsFragment(View v) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_container, new InventoryStatusFragment());
+        ft.commit();
     }
 
 
+
+    //TODO probably doent belong here
     /**
      * loads the recipe DB and saves it as a variable.
      */

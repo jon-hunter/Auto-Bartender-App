@@ -2,20 +2,51 @@
     <string name="app_name">Auto Bartender</string>
 
     <!--    Menu bar labels and info-->
-    <string name="nav_header_title">Auto Bartender</string>
-    <string name="nav_header_subtitle">v0.0.3</string>
-    <string name="nav_header_desc">[Menu description]</string>
 
     <string name="action_settings">Settings</string>
 
     <string name="title_activity_recipe_list">Recipe List</string>
-    <string name="title_activity_inv_stats">Inventory Status</string>
+    <string name="title_activity_inv_status">Inventory Status</string>
+    <string name="title_activity_drink_status">Drink Status</string>
     <string name="title_activity_order_info">OrderInfo</string>
-
-    <string name="meme">List item. theres a way to define xml list items so that we can just have one with like img and txt repeated a bunch and we just fill it out with whatever info is appropriate. Ideally that list item is reusable enough that we can use the same thing whether we\'re listing by recent drinks, or users favorites, or just the whole library of recipes. each one would come with different info but we can fill that in however is appropriate</string>
 
     <string name="default_title">Title</string>
     <string name="default_description">Description</string>
+    <string name="default_ingredient_name">Ingredient Name</string>
+    <string name="default_ingredient_amount">0 mL</string>
     <string name="order_button">Order this drink now</string>
     <string name="edit">Edit</string>
+
+<!--    Networking URL stuff-->
+    <string name="URL_BASE">http://10.0.2.2:8080/</string>
+    <string name="URL_PATH_INVENTORY">./inventory/</string>
+
+<!--    Ingredient naming activity-->
+    <string name="no_ingredient">No Ingredient Installed</string>
+    <string name="unknown_ingredient">"Unknown Ingredient: %s"</string>
+    <string name="slot">Slot:</string>
+    <string name="suffix_ml">%d mL</string>
+    <string name="refresh">Refresh</string>
+
+<!--    non-ideal implementation of a lookup table to get ingredient names from IDs-->
+    <array name="ingredient_names">
+        <item>Vodka</item>
+        <item>Rum</item>
+        <item>Tequila</item>
+        <item>Alcohol</item>
+        <item>Fireball</item>
+        <item>Whiskey</item>
+        <item>Schnapps?</item>
+        <item>Soda</item>
+    </array>
+    <array name="ingredient_IDs">
+        <item>VODKA</item>
+        <item>RUM</item>
+        <item>TEQUILA</item>
+        <item>ALCOHOL</item>
+        <item>FIREBALL</item>
+        <item>WHISKEY</item>
+        <item>SCHNAPPS</item>
+        <item>SODA</item>
+    </array>
 </resources>

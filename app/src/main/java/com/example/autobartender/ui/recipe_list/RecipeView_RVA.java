@@ -1,4 +1,4 @@
-package com.example.autobartender;
+package com.example.autobartender.ui.recipe_list;
 
 import android.content.Context;
 import android.util.Log;
@@ -11,61 +11,70 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.autobartender.R;
+import com.example.autobartender.ui.main_activity.MainVM;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class RecyclerView_Adapter extends RecyclerView.Adapter {
-    private static final String TAG = "RecyclerView_Adapter";
+public class RecipeView_RVA extends RecyclerView.Adapter<RecipeView_RVA.RowViewHolder> {
+    private static final String TAG = "RecipeView_RVA";
 
     private final LayoutInflater li;
     private final Context ctx;
-    private MainDataSingleton vm;
+    private final MainVM vm;
 
 
-    public RecyclerView_Adapter(Context ctx){
+    public RecipeView_RVA(Context ctx){
         this.ctx=ctx;
         this.li=(LayoutInflater)ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.vm = MainDataSingleton.getInstance();
+        this.vm = MainVM.getInstance();
     }
+
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = li.inflate(R.layout.drink_list_item, parent, false);
+    public RowViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = li.inflate(R.layout.row_recipe_info, parent, false);
         return new RowViewHolder(view); //the new one
     }
 
+
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
-        //TODO fill in specific data (find info from somewhere lol idk) and image
-        RowViewHolder vh = (RowViewHolder) holder;
+    public void onBindViewHolder(@NonNull  RowViewHolder holder, int position) {
         try {
-            JSONObject recipe = vm.getRecipe(position, MainDataSingleton.RecipeSortOrder.DEFAULT);
+            JSONObject recipe = vm.getRecipe(position, MainVM.RecipeSortOrder.DEFAULT);
             //TODO: make the order parameterized so this list can be populated differently
-            vh.tvTitle.setText(recipe.getString(vm.NAME));
-            vh.tvDescription.setText(recipe.getString(vm.DESCRIPTION));
 
+            holder.recipeID = recipe.getString(vm.ID);
+            holder.tvTitle.setText(recipe.getString(vm.NAME));
+            holder.tvDescription.setText(recipe.getString(vm.DESCRIPTION));
         } catch (JSONException e) {
             e.printStackTrace();
             Log.d(TAG, "onBindViewHolder: tried to make more rows than there are drink recipes. shouldnt be possible");
         }
+
+        // Setup click handler
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: rowviewholder clicked: " + holder.recipeID);
+                vm.launch_recipe_order_info(holder.recipeID);
+            }});
     }
+
 
     @Override
     public int getItemCount() {
         return this.vm.getNumRecipes();
     }
 
-//    public interface RecyclerViewClickListener {
-//        public void recyclerViewListClicked(View v, int position);
-//    }
 
-
-    class RowViewHolder extends RecyclerView.ViewHolder {//implements View.OnClickListener {
+    static class RowViewHolder extends RecyclerView.ViewHolder {
         TextView tvTitle;
         TextView tvDescription;
         ImageView ivThumbnail;
+        String recipeID;
 
         public RowViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -73,10 +82,5 @@ public class RecyclerView_Adapter extends RecyclerView.Adapter {
             this.tvDescription = (TextView)itemView.findViewById(R.id.description);
             this.ivThumbnail = (ImageView) itemView.findViewById(R.id.thumbnail);
         }
-//
-//        @Override
-//        public void onClick(View v) {
-//
-//        }
     }
 }
