@@ -20,6 +20,7 @@
 <!--    Networking URL stuff-->
     <string name="URL_BASE">http://10.0.2.2:8080/</string>
     <string name="URL_PATH_INVENTORY">./inventory/</string>
+    <string name="URL_PATH_DRINK_REQUEST">./drink/</string>
 
 <!--    Ingredient naming activity-->
     <string name="no_ingredient">No Ingredient Installed</string>

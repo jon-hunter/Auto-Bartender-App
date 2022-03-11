@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(JSONObject jsonObject) { launchOrderInfoActivity(); }
         };
-        vm.getRecipeChoice().observe(this, recipeChoiceObserver);
+        vm.getSelectedRecipe().observe(this, recipeChoiceObserver);
     }
 
     //Navigation functions. These are event handlers (click or otherwise), either launching an activity or swapping out the main fragment view

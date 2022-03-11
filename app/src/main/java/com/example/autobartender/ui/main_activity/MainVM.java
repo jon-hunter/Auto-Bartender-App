@@ -1,7 +1,6 @@
 package com.example.autobartender.ui.main_activity;
 
 import android.util.Log;
-import android.view.View;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -15,10 +14,17 @@ public class MainVM {
     private static final String TAG = "MainDataVM";  // For log.
 
     // Variables go here
-    private MutableLiveData<JSONObject> recipeChoice = new MutableLiveData<JSONObject>();
-    public MutableLiveData<JSONObject> getRecipeChoice() {
-        return recipeChoice;
+    private MutableLiveData<JSONObject> selectedRecipe = new MutableLiveData<JSONObject>();
+    public MutableLiveData<JSONObject> getSelectedRecipe() {
+        return selectedRecipe;
     };
+    public String getSelectedRecipeID() {
+        try {
+            return selectedRecipe.getValue().getString("id");
+        } catch (JSONException e) {
+            return "null";
+        }
+    }
 
     // Recipe DB variables - string keys.
     public JSONArray recipeDB;
@@ -88,7 +94,7 @@ public class MainVM {
      */
     public void launch_recipe_order_info(String recipeID) {
         // post value, observer in mainActivity launches activity on livedata update.
-        this.recipeChoice.postValue(this.getRecipe(recipeID));
+        this.selectedRecipe.postValue(this.getRecipe(recipeID));
     }
 
 
