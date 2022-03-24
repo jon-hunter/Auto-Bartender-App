@@ -1,4 +1,4 @@
-package com.example.autobartender;
+package com.example.autobartender.utils;
 
 import android.content.Context;
 import android.util.Log;
@@ -6,7 +6,7 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.autobartender.ui.main_activity.MainVM;
+import com.example.autobartender.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,39 +18,58 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.UUID;
 
-public class DrinkRequestVM extends ViewModel {
-    private final String TAG = "DrinkRequestVM";
+public class PostDrinkRequest {
+    private final String TAG = "PostDrinkRequest";
 
-    public MainVM mainVM;
+    private static PostDrinkRequest instance = null;
+    private PostDrinkRequest() { }
+    private PostDrinkRequest(Context ctx) {
+        this.recipeDBManager = RecipeDBManager.getInstance();
+
+        try {
+            URL_BASE = new URI(ctx.getString(R.string.URL_BASE));
+        } catch (URISyntaxException e) {
+            Log.d(TAG, "onCreate: R.string.URLBASE did not make a valid URI. check that out");
+        }
+    }
+    public static PostDrinkRequest getInstance(Context ctx) {
+        if (instance == null)
+            instance = new PostDrinkRequest(ctx);
+
+        return instance;
+    }
+
+    private RecipeDBManager recipeDBManager;
     //TODO centralize URLBASE variable idk
     public URI URL_BASE;  // the directory all the files are in.
 
     // Livedata getters
-    private MutableLiveData<String> resultInfo = new MutableLiveData<String>();
+//    private MutableLiveData<String> resultInfo = new MutableLiveData<String>();
+//    public MutableLiveData<String> getResultInfo() {
+//        if (resultInfo == null)
+//            resultInfo = new MutableLiveData<String>();
+//        return resultInfo;
+//    }
 
-    public MutableLiveData<String> getResultInfo() {
-        if (resultInfo == null)
-            resultInfo = new MutableLiveData<String>();
-        return resultInfo;
-    }
 
-
-    public void requestDrink(Context ctx) {
+    public DrinkRequestThread requestDrink(Context ctx) {
         // Add appropriate path to end of URL and start thread
         try {
             URL url = URL_BASE.resolve(ctx.getString(R.string.URL_PATH_DRINK_REQUEST)).toURL();
 
-            SendRecipeJSON sendJSONThread = new SendRecipeJSON(
+            DrinkRequestThread sendJSONThread = new DrinkRequestThread(
                     url,
-                    createDrinkRequest(mainVM.getSelectedRecipeID())
+                    createDrinkRequest(recipeDBManager.getSelectedRecipeID())
             );
             sendJSONThread.start();
+            return sendJSONThread;
         } catch (MalformedURLException e) {
             Log.d(TAG, "requestDrink: MALFORMED URL. This is hardcoded so should not happen");
             Log.d(TAG, String.format(
@@ -59,6 +78,7 @@ public class DrinkRequestVM extends ViewModel {
                     ctx.getString(R.string.URL_PATH_INVENTORY)
             ));
         }
+        return null;
     }
 
     /**
@@ -68,13 +88,16 @@ public class DrinkRequestVM extends ViewModel {
      * @return JSON object
      */
     private String createDrinkRequest(String recipeID) {
-        JSONObject rawRecipe = mainVM.getRecipe(recipeID);
+        JSONObject rawRecipe = recipeDBManager.getRecipe(recipeID);
         JSONObject requestBody = new JSONObject();
 
         try {
+            //TODO centralize JSON tags
             requestBody.put("DRINK_ID", UUID.randomUUID());
+            requestBody.put("USER_ID", "bennettH");
+            //TODO UID system
             requestBody.put("TIMESTAMP", DateFormat.getDateTimeInstance().format(new Date()));
-            requestBody.put("INGREDIENTS", mainVM.getSelectedRecipe().getValue().getJSONArray(mainVM.INGREDIENTS));
+            requestBody.put("INGREDIENTS", recipeDBManager.getSelectedRecipe().getValue().getJSONArray(recipeDBManager.INGREDIENTS));
 
             return requestBody.toString();
         } catch (JSONException e) {
@@ -86,19 +109,26 @@ public class DrinkRequestVM extends ViewModel {
     }
 
 
-    public class SendRecipeJSON extends Thread {
+    public class DrinkRequestThread extends Thread {
         private static final String TAG = "SendRecipeJSON";
         private static final int DEFAULTBUFFERSIZE = 8096;
         private static final int TIMEOUT = 1000; // 1 second
         protected int statusCode = 0;
         private final URL URL;
         private final String requestBody;
-        private MutableLiveData<String> output_dest;
 
-        public SendRecipeJSON(URL url, String reqBody) {
+        private MutableLiveData<JSONObject> returnData;
+        public MutableLiveData<JSONObject> getReturnData() {
+            if (returnData == null)
+                returnData = new MutableLiveData<JSONObject>();
+            return returnData;
+        }
+
+        public DrinkRequestThread(URL url, String reqBody) {
             Log.d(TAG, "constructor: Initialized new Thread to send drink recipe: " + url);
             this.URL = url;
             this.requestBody = reqBody;
+            this.returnData = new MutableLiveData<JSONObject>();
         }
 
         public void run() {
@@ -127,31 +157,30 @@ public class DrinkRequestVM extends ViewModel {
                 statusCode = connection.getResponseCode();
                 Log.d(TAG, "run: connection statuscode=" + statusCode);
                 if (statusCode / 100 != 2) {
-                    Log.d(TAG, "run: failed. Not updating data");
-                    resultInfo.postValue("failed, code " + statusCode);
-                    return;
+                    Log.d(TAG, "run: error. May not updating data");
+//                    resultInfo.postValue("request error, code " + statusCode);
                 }
+                Log.d(TAG, "run: made it here");
 
 
                 // build response string
                 StringBuilder responseBuilder = new StringBuilder();
-                JSONObject response;
-                try (BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream(), "utf-8"))) {
+                Log.d(TAG, "run: stringbuilder init'd");
+                try (BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8))) {
+                    Log.d(TAG, "run: buffereader initd");
                     String responseLine = null;
                     while ((responseLine = br.readLine()) != null) {
+                        Log.d(TAG, "run: in the loop");
                         responseBuilder.append(responseLine.trim());
                     }
-                    response = new JSONObject(responseBuilder.toString());
+                    Log.d(TAG, "run: response: " + responseBuilder.toString());
+                    returnData.postValue(new JSONObject(responseBuilder.toString()));
+
                 }
-
-                Log.d(TAG, "run: response: " + response.toString());
-
-
-                //TODO system to handle drink statuses. received? not received?
 
             } catch (IOException | JSONException e) {
                 Log.d(TAG, "run: error: " + e.toString());
-                resultInfo.postValue(e.toString());
+//                resultInfo.postValue(e.toString());
             } finally {
                 if (connection != null)
                     connection.disconnect();

@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.autobartender.R;
-import com.example.autobartender.ui.main_activity.MainVM;
+import com.example.autobartender.utils.RecipeDBManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,14 +21,11 @@ public class RecipeView_RVA extends RecyclerView.Adapter<RecipeView_RVA.RowViewH
     private static final String TAG = "RecipeView_RVA";
 
     private final LayoutInflater li;
-    private final Context ctx;
-    private final MainVM vm;
+    private final RecipeDBManager vm;
 
-
-    public RecipeView_RVA(Context ctx){
-        this.ctx=ctx;
+    public RecipeView_RVA(Context ctx) {
         this.li=(LayoutInflater)ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.vm = MainVM.getInstance();
+        this.vm = RecipeDBManager.getInstance();
     }
 
 
@@ -43,7 +40,7 @@ public class RecipeView_RVA extends RecyclerView.Adapter<RecipeView_RVA.RowViewH
     @Override
     public void onBindViewHolder(@NonNull  RowViewHolder holder, int position) {
         try {
-            JSONObject recipe = vm.getRecipe(position, MainVM.RecipeSortOrder.DEFAULT);
+            JSONObject recipe = vm.getRecipe(position, RecipeDBManager.RecipeSortOrder.DEFAULT);
             //TODO: make the order parameterized so this list can be populated differently
 
             holder.recipeID = recipe.getString(vm.ID);

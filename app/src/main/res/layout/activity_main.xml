@@ -40,6 +40,7 @@
         <Button
             android:id="@+id/launch_drink_monitor"
             android:text="@string/title_activity_drink_status"
+            android:onClick="launchDrinkMonitorFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

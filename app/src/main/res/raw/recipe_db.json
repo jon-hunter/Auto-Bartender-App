@@ -1,102 +1,114 @@
 [
   {
-    "id": "BEACH_PUNCH",
-    "name": "Bennett's Beach Punch",
-    "desc": "a lovely drink for when you're on a boat. This recipe was meant to be made in the punch jug but it can be adapted.",
-    "img": "beach_punch.png",
-    "ingr": [
+    "ID": "BEACH_PUNCH",
+    "NAME": "Bennett's Beach Punch",
+    "DESCRIPTION": "a lovely drink for when you're on a boat. This recipe was meant to be made in the punch jug but it can be adapted.",
+    "IMAGE": "beach_punch.png",
+    "INGREDIENTS": [
       {
-        "index": 0,
-        "id": "FRUIT_PUNCH",
-        "qty": 2750
+        "INDEX": 0,
+        "ID": "FRUIT_PUNCH",
+        "QUANTITY": 2750
       },
       {
-        "index": 1,
-        "id": "VODKA",
-        "qty": 750
+        "INDEX": 1,
+        "ID": "VODKA",
+        "QUANTITY": 750
       }
     ]
   },
   {
-    "id": "RUM_COKE",
-    "name": "Rum and Coke",
-    "desc": "A classic drink, made with two great ingredients, which we like a lot and are very good together. I have never had a rum and coke and I don't know the recipe so I just made it up.",
-    "ingr": [
+    "ID": "RUM_COKE",
+    "NAME": "Rum and Coke",
+    "DESCRIPTION": "A classic drink, made with two great ingredients, which we like a lot and are very good together. I have never had a rum and coke and I don't know the recipe so I just made it up.",
+    "INGREDIENTS": [
       {
-        "index": 0,
-        "id": "RUM",
-        "qty": 90
+        "INDEX": 0,
+        "ID": "RUM",
+        "QUANTITY": 90
       },
       {
-        "index": 1,
-        "id": "COKE",
-        "qty": 450
+        "INDEX": 1,
+        "ID": "COKE",
+        "QUANTITY": 450
       }
     ]
   },
   {
-    "id": "POISON",
-    "name": "Oops! all Alcohol",
-    "desc": "I dont know many recipes so this one isnt real. I'm just going to list a buynch of ingredients and really hope you don't try to mix them together because that might be really bad. Do not drink this recipe.",
-    "ingr": [
+    "ID": "POISON",
+    "NAME": "Oops! all Alcohol",
+    "DESCRIPTION": "I dont know many recipes so this one isnt real. I'm just going to list a buynch of ingredients and really hope you don't try to mix them together because that might be really bad. Do not drink this recipe.",
+    "INGREDIENTS": [
       {
-        "index": 0,
-        "id": "VODKA",
-        "qty": 120
+        "INDEX": 0,
+        "ID": "VODKA",
+        "QUANTITY": 120
       },
       {
-        "index": 1,
-        "id": "TEQUILA",
-        "qty": 120
+        "INDEX": 1,
+        "ID": "TEQUILA",
+        "QUANTITY": 120
       },
       {
-        "index": 2,
-        "id": "RUM",
-        "qty": 120
+        "INDEX": 2,
+        "ID": "RUM",
+        "QUANTITY": 120
       },
       {
-        "index": 3,
-        "id": "GIN",
-        "qty": 120
+        "INDEX": 3,
+        "ID": "GIN",
+        "QUANTITY": 120
       }
     ]
   },
   {
-    "id": "MIMOSA",
-    "name": "Vodka Mimosa",
-    "desc": "A regular mimosa except its just vodka instead of champagne.",
-    "ingr": [
+    "ID": "MIMOSA",
+    "NAME": "Vodka Mimosa",
+    "DESCRIPTION": "A regular mimosa except its just vodka instead of champagne.",
+    "INGREDIENTS": [
       {
-        "index": 0,
-        "id": "VODKA",
-        "qty": 90
+        "INDEX": 0,
+        "ID": "VODKA",
+        "QUANTITY": 90
       },
       {
-        "index": 1,
-        "id": "OJ",
-        "qty": 400
+        "INDEX": 1,
+        "ID": "OJ",
+        "QUANTITY": 400
       }
     ]
   },
   {
-    "id": "DRINK5",
-    "name": "The 5th Drink",
-    "desc": "It is currently 8:35 AM on Friday, November 12 2021. This drink mixes coke, orange juice and fruit punch for no reason other than those ingredients already exist",
-    "ingr": [
+    "ID": "DRINK5",
+    "NAME": "The 5th Drink",
+    "DESCRIPTION": "It is currently 8:35 AM on Friday, November 12 2021. This drink mixes coke, orange juice and fruit punch for no reason other than those ingredients already exist",
+    "INGREDIENTS": [
       {
-        "index": 0,
-        "id": "COKE",
-        "gty": 100
+        "INDEX": 0,
+        "ID": "COKE",
+        "QUANTITY": 100
       },
       {
-        "index": 1,
-        "id": "OJ",
-        "qty": 100
+        "INDEX": 1,
+        "ID": "OJ",
+        "QUANTITY": 100
       },
       {
-        "index": 2,
-        "id": "FRUIT_PUNCH",
-        "qty": 100
+        "INDEX": 2,
+        "ID": "FRUIT_PUNCH",
+        "QUANTITY": 100
+      }
+    ]
+  },
+  {
+    "ID": "FIREBALL_SHOT",
+    "NAME": "Shot of Fireball",
+    "DESCRIPTION": "That's all it is",
+    "INGREDIENTS": [
+      {
+        "INDEX": 0,
+        "ID": "FIREBALL",
+        "QUANTITY": 44
       }
     ]
   }

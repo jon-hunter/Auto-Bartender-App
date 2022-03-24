@@ -1,4 +1,4 @@
-package com.example.autobartender.ui.main_activity;
+package com.example.autobartender.utils;
 
 import android.util.Log;
 
@@ -8,10 +8,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MainVM {
-    private static MainVM instance = null;
-
+public class RecipeDBManager {
     private static final String TAG = "MainDataVM";  // For log.
+
+    private static RecipeDBManager instance = null;
+    private RecipeDBManager() {  }
+    public static RecipeDBManager getInstance() {
+        if (instance == null)
+            instance = new RecipeDBManager();
+
+        return instance;
+    }
 
     // Variables go here
     private MutableLiveData<JSONObject> selectedRecipe = new MutableLiveData<JSONObject>();
@@ -28,26 +35,17 @@ public class MainVM {
 
     // Recipe DB variables - string keys.
     public JSONArray recipeDB;
-    public final String ID = "id";
-    public final String NAME = "name";
-    public final String DESCRIPTION = "desc";
-    public final String INGREDIENTS = "ingr";
-    public final String INDEX = "index";
-    public final String QUANTITY = "qty";
+    public final String ID = "ID";
+    public final String NAME = "NAME";
+    public final String DESCRIPTION = "DESCRIPTION";
+    public final String INGREDIENTS = "INGREDIENTS";
+    public final String INDEX = "INDEX";
+    public final String QUANTITY = "QUANTITY";
 
     public enum RecipeSortOrder {
         DEFAULT, RECENT
     }
 
-    private MainVM() { }
-
-    public static MainVM getInstance() {
-        if (instance != null)
-            return instance;
-
-        instance = new MainVM();
-        return instance;
-    }
 
     /**
      * calculates the nuymber of recipes found in the DB
@@ -96,6 +94,5 @@ public class MainVM {
         // post value, observer in mainActivity launches activity on livedata update.
         this.selectedRecipe.postValue(this.getRecipe(recipeID));
     }
-
 
 }

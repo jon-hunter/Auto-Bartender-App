@@ -2,40 +2,40 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="12dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="12dp">
 
     <TextView
-        android:id="@+id/slot_number"
+        android:id="@+id/tv_queue_position"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="12dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/ingredient_title"
-        android:text="@string/default_ingredient_name"
+        android:id="@+id/tv_recipe_name"
+        android:text="@string/default_recipe_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="12dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/slot_number" />
+        app:layout_constraintStart_toEndOf="@id/tv_queue_position" />
 
     <TextView
-        android:id="@+id/ingredient_amount"
-        android:text="@string/default_ingredient_amount"
+        android:id="@+id/tv_user_ID"
+        android:text="@string/default_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="12dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/ingredient_title"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/ingredient_title" />
+        app:layout_constraintTop_toBottomOf="@id/tv_queue_position" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

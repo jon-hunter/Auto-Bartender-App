@@ -10,11 +10,13 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.autobartender.OrderInfoActivity;
+import com.example.autobartender.ui.drink_monitor.DrinkMonitorFragment;
+import com.example.autobartender.ui.order_info.OrderInfoActivity;
 import com.example.autobartender.R;
 import com.example.autobartender.databinding.ActivityMainBinding;
 import com.example.autobartender.ui.inventory_monitor.InventoryStatusFragment;
 import com.example.autobartender.ui.recipe_list.RecipeListFragment;
+import com.example.autobartender.utils.RecipeDBManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,7 +30,7 @@ import java.io.InputStreamReader;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
-    private MainVM vm;
+    private RecipeDBManager vm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +45,8 @@ public class MainActivity extends AppCompatActivity {
         ft.commit();
 
 
-
         // Get the ViewModel
-        vm = MainVM.getInstance();
+        vm = RecipeDBManager.getInstance();
         if (vm.recipeDB == null) {
             loadRecipeDb();
         }
@@ -73,6 +74,12 @@ public class MainActivity extends AppCompatActivity {
     public void launchInventoryStatsFragment(View v) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.fragment_container, new InventoryStatusFragment());
+        ft.commit();
+    }
+
+    public void launchDrinkMonitorFragment(View v) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_container, new DrinkMonitorFragment());
         ft.commit();
     }
 

@@ -1,4 +1,4 @@
-package com.example.autobartender.ui.inventory_monitor;
+package com.example.autobartender.utils;
 
 import android.content.Context;
 import android.util.Log;
@@ -16,17 +16,34 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 
-public class InventoryStatusVM extends ViewModel {
+public class GetInventoryStatus {
     private final String TAG = "InventoryStatusVM";
+
+    private static GetInventoryStatus instance = null;
+    private GetInventoryStatus() { }
+    private GetInventoryStatus(Context ctx) {
+        try {
+            URL_BASE = new URI(ctx.getString(R.string.URL_BASE));
+        } catch (URISyntaxException e) {
+            Log.d(TAG, "onCreate: R.string.URLBASE did not make a valid URI. check that out");
+        }
+    }
+    public static GetInventoryStatus getInstance(Context ctx) {
+        if (instance == null)
+            instance = new GetInventoryStatus(ctx);
+
+        return instance;
+    }
 
     public URI URL_BASE;  // the directory all the files are in.
 
-    private InventoryJSON inventory;
-    public InventoryJSON getInventory() {
+    private InventoryJSONManager inventory;
+    public InventoryJSONManager getInventory() {
         if (inventory == null)
-            inventory = new InventoryJSON();
+            inventory = new InventoryJSONManager();
         return inventory;
     }
 
@@ -34,17 +51,17 @@ public class InventoryStatusVM extends ViewModel {
      * Stores inventory jsonobj and has methods to parse and get data from it.
      * Nicely abstracts actual json format away from all other code
      */
-    public class InventoryJSON {
+    public class InventoryJSONManager {
         // JSON tag names
-        private final String MAX_QUANTITY = "MAX_QUANTITY";
-        private final String NUM_SLOTS = "NUM_SLOTS";
-        private final String SLOTS = "SLOTS";
-        private final String INGREDIENT = "INGREDIENT";
-        private final String QUANTITY = "QUANTITY";
+        private static final String MAX_QUANTITY = "MAX_QUANTITY";
+        private static final String NUM_SLOTS = "NUM_SLOTS";
+        private static final String SLOTS = "SLOTS";
+        private static final String INGREDIENT = "INGREDIENT";
+        private static final String QUANTITY = "QUANTITY";
 
         private final MutableLiveData<JSONObject> ingStats;
 
-        public InventoryJSON() {
+        public InventoryJSONManager() {
             ingStats = new MutableLiveData<JSONObject>();
         }
 
@@ -94,6 +111,19 @@ public class InventoryStatusVM extends ViewModel {
                 return 0;
             }
         }
+
+        public int getIngredientQuantity(String ingID) {
+            for (int i = 0; i < getNumSlots(); i++) {
+                if (getIngredientID(i).equals(ingID)) {
+                    return getIngredientQuantity(i);
+                }
+            }
+            return 0;
+        }
+
+        public boolean hasQuantityOfIngredient(String ingID, int quantity) {
+            return getIngredientQuantity(ingID) >= quantity;
+        }
     }
 
     // Livedata getters
@@ -112,7 +142,7 @@ public class InventoryStatusVM extends ViewModel {
         // Add appropriate path to end of URL and start thread
         try {
             URL url = URL_BASE.resolve(ctx.getString(R.string.URL_PATH_INVENTORY)).toURL();
-            GetIngredientStatsJSON getJSONThread = new GetIngredientStatsJSON(url);
+            IngStatsRequestThread getJSONThread = new IngStatsRequestThread(url);
             getJSONThread.start();
         } catch (MalformedURLException e) {
             Log.d(TAG, "requestFetchFullInventory: MALFORMED URL. This is hardcoded so should not happen");
@@ -125,7 +155,7 @@ public class InventoryStatusVM extends ViewModel {
     }
 
 
-    public class GetIngredientStatsJSON extends Thread{
+    public class IngStatsRequestThread extends Thread{
         private static final String TAG = "GetIngredientStatsJSON";
         private static final int DEFAULTBUFFERSIZE = 8096;
         private static final int TIMEOUT = 1000; // 1 second
@@ -133,7 +163,7 @@ public class InventoryStatusVM extends ViewModel {
         private final URL URL;
         private MutableLiveData<String> output_dest;
 
-        public GetIngredientStatsJSON(URL url) {
+        public IngStatsRequestThread(URL url) {
             Log.d(TAG, "constructor: Initialized new Thread to get json from url " + url);
             this.URL=url;
         }

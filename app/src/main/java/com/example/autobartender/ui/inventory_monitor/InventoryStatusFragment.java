@@ -8,7 +8,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.autobartender.R;
+import com.example.autobartender.utils.GetInventoryStatus;
 
 import org.json.JSONObject;
 
@@ -28,7 +28,7 @@ import java.net.URISyntaxException;
 public class InventoryStatusFragment extends Fragment implements View.OnClickListener {
     private final String TAG = "InventoryStatusFragment";
 
-    private InventoryStatusVM vm;
+    private GetInventoryStatus vm;
     private RecyclerView rv;
     private InventoryStatus_RVA rva;
 
@@ -41,17 +41,12 @@ public class InventoryStatusFragment extends Fragment implements View.OnClickLis
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         Log.d(TAG, "onViewCreated: created");
 
-        vm = new ViewModelProvider(this).get(InventoryStatusVM.class);
-        try {
-            vm.URL_BASE = new URI(getString(R.string.URL_BASE));
-        } catch (URISyntaxException e) {
-            Log.d(TAG, "onCreate: R.string.URLBASE did not make a valid URI. check that out");
-        }
+        vm = GetInventoryStatus.getInstance(this.getContext());
 
         // init the recyclerview
         rv = getActivity().findViewById(R.id.rvIngredients);
         rv.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        rva = new InventoryStatus_RVA(view.getContext(), vm);
+        rva = new InventoryStatus_RVA(view.getContext());
         rv.setAdapter(rva);
 
         // Configure livedata Observers

@@ -24,7 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".OrderInfoActivity"/>
+        <activity android:name=".ui.order_info.OrderInfoActivity"/>
     </application>
 
 </manifest>
