@@ -18,27 +18,21 @@ import com.example.autobartender.databinding.FragmentRecipeListBinding;
 
 
 public class RecipeListFragment extends Fragment {
-
-    private RecipeListViewModel galleryViewModel;
     private FragmentRecipeListBinding binding;
 
-    private RecyclerView rv;
-    private RecipeView_RVA rva;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        this.galleryViewModel = new ViewModelProvider(this).get(RecipeListViewModel.class);
         this.binding = FragmentRecipeListBinding.inflate(inflater, container, false);
-
         return binding.getRoot();
     }
+
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         // Init the recyclerview
-         rv=getActivity().findViewById(R.id.rvRecipeList);
-         rva = new RecipeView_RVA(view.getContext());
-         rv.setAdapter(rva);
+        RecyclerView rv = getActivity().findViewById(R.id.rvRecipeList);
+        RecipeView_RVA rva = new RecipeView_RVA(view.getContext());
+        rv.setAdapter(rva);
 
         GridLayoutManager layoutManager = new GridLayoutManager(
                 view.getContext(),

@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".ui.order_info.OrderInfoActivity">
 
+<!--    TODO make this a big ol fancy cardview-->
+
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
@@ -36,9 +38,9 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/title_textView" />
 
-    <TextView
-        android:id="@+id/ingredient_list_tv"
-        android:text="@string/default_ingredient_list"
+    <LinearLayout
+        android:id="@+id/ingredient_list"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/desc_textView" />
@@ -50,7 +52,7 @@
         android:text="@string/order_button"
         android:onClick="startRecipeOrder"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ingredient_list_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/ingredient_list" />
 
     <Button
         android:id="@+id/edit_drink_button"
@@ -58,7 +60,7 @@
         android:layout_height="wrap_content"
         android:text="@string/edit"
         app:layout_constraintStart_toEndOf="@+id/order_button"
-        app:layout_constraintTop_toBottomOf="@+id/ingredient_list_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/ingredient_list" />
 
     <TextView
         android:id="@+id/request_status_tv"

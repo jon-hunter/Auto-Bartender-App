@@ -11,12 +11,13 @@
         android:text="@string/drink_queue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="12dp"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvDrinkQueue"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/drink_queue_title_tv"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
