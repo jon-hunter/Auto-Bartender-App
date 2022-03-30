@@ -54,11 +54,11 @@ public class RecipeInfoHelper {
 
         if (InventoryManager.canMakeRecipe(recipe)) {
             canMakeRecipe.setText(R.string.can_make_drink);
-            canMakeRecipe.getBackground().setState(new int[]{R.attr.state_can_make_drink});
+            canMakeRecipe.setBackgroundResource(R.drawable.recipe_status_available);
         }
         else {
             canMakeRecipe.setText(R.string.cant_make_drink);
-            canMakeRecipe.getBackground().setState(new int[]{-R.attr.state_can_make_drink});
+            canMakeRecipe.setBackgroundResource(R.drawable.recipe_status_unavailable);
         }
 
         this.tvDescription.setText(recipe.getDescription());

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:constantSize="true"
+    android:shape="rectangle">
+    <corners
+        android:radius="@dimen/default_card_corner_rad"/>
+    <solid
+        android:color="@color/recipe_status_unavailable"/>
+</shape>

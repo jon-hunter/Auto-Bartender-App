@@ -36,7 +36,7 @@
         android:ellipsize="none"
         android:layout_height="wrap_content"
         android:maxHeight="24dp"
-        android:background="@drawable/recipe_status_indicator"
+        android:background="@drawable/recipe_status_unavailable"
         android:paddingHorizontal="12dp"
         android:paddingVertical="2dp"
         app:layout_constraintEnd_toEndOf="parent"

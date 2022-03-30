@@ -40,7 +40,9 @@ public class InventoryManager {
         // Setup URL
         URL url = null;
         try {
-            url = Constants.getURLBase().resolve(Constants.URL_PATH_INVENTORY).toURL();
+            //TODO fix this crappy workaround lol
+//            url = Constants.getURLBase().resolve(Constants.URL_PATH_INVENTORY).toURL();
+            url = new URL("http://10.0.2.2:8000/INVENTORY.JSON");
         } catch (MalformedURLException e) {
             Log.d(TAG, "updateInventory: MALFORMED URL. This is hardcoded so should not happen");
             Log.d(TAG, String.format(
