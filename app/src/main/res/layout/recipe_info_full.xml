@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--shows full info on a recipe, can be used wherever necessary. To hide image, set its visibility to gone-->
+<!--feel free to override the entire layout, as long as the elements with IDs are still reachable-->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recipe_info_full"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_recipe_main"
+        app:srcCompat="@drawable/ic_launcher_background"
+        android:contentDescription="@string/default_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_recipe_name_full"
+        android:text="@string/default_title"
+        android:padding="@dimen/default_padding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/iv_recipe_main"/>
+
+    <TextView
+        android:id="@+id/can_make_drink"
+        android:text="@string/cant_make_drink"
+        android:textAlignment="center"
+        android:textSize="@dimen/text_size_small"
+        android:layout_width="wrap_content"
+        android:maxWidth="160dp"
+        android:ellipsize="none"
+        android:layout_height="wrap_content"
+        android:maxHeight="24dp"
+        android:background="@drawable/recipe_status_indicator"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_recipe_main"
+        app:layout_constraintBottom_toTopOf="@+id/barrier"
+        android:layout_marginEnd="@dimen/default_padding"
+        android:layout_marginVertical="@dimen/thin_padding"/>
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="tv_recipe_name_full, can_make_drink"/>
+
+    <TextView
+        android:id="@+id/tv_description_full"
+        android:text="@string/default_description"
+        android:paddingHorizontal="@dimen/default_padding"
+        android:paddingVertical="@dimen/thin_padding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/barrier"/>
+
+    <TextView
+        android:id="@+id/tv_ingredient_list"
+        android:text="@string/default_ingredient_list"
+        android:paddingHorizontal="@dimen/default_padding"
+        android:paddingVertical="@dimen/thin_padding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_description_full"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/tv_ingredient_list">
+
+        <Button
+            android:id="@+id/btn_order"
+            android:text="@string/order_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?android:attr/buttonBarButtonStyle" />
+
+        <Button
+            android:id="@+id/btn_edit"
+            android:text="@string/edit_drink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?android:attr/buttonBarButtonStyle" />
+
+        <ImageButton
+            android:id="@+id/btn_favorite"
+            app:srcCompat="@android:drawable/star_off"
+            android:contentDescription="@string/add_to_favorites"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?android:attr/buttonBarButtonStyle"/>
+<!--        TODO some kinda state selector drawable so u can see when u click it-->
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

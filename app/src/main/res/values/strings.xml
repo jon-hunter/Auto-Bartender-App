@@ -13,16 +13,18 @@
 <!--    default values-->
     <string name="default_title">Title</string>
     <string name="default_description">Description</string>
-    <string name="default_ingredient_list">(empty ingredient list)</string>
+    <string name="default_ingredient_list">• -- oz unknown ingredient\n• -- shots unknown ingredient</string>
     <string name="default_ingredient_name">Unknown Ingredient</string>
     <string name="default_ingredient_amount">-- mL</string>
     <string name="default_recipe_name">Unknown Recipe</string>
     <string name="default_user">Unknown User</string>
 
-    <string name="can_make_drink">"Can Make Drink: Yes"</string>
-    <string name="cant_make_drink">"Can Make Drink: No"</string>
+    <string name="can_make_drink">Ready to make</string>
+    <string name="cant_make_drink">Recipe unavailable</string>
     <string name="order_button">Order this drink now</string>
-    <string name="edit">Edit</string>
+    <string name="edit_drink">Edit Drink</string>
+
+    <string name="ingredient_list_row_mL">• %d mL %s \n</string>
 
     <!--    Ingredient naming activity-->
     <string name="no_ingredient">No Ingredient Installed</string>
@@ -60,4 +62,5 @@
         <item>SODA</item>
     </array>
     <string name="drink_queue">Drink Queue</string>
+    <string name="add_to_favorites">Add to favorites</string>
 </resources>

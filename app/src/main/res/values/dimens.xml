@@ -7,7 +7,13 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="default_card_height">120dp</dimen>
+    <dimen name="thumbnail_height">120dp</dimen>
     <dimen name="default_card_corner_rad">12dp</dimen>
     <dimen name="default_card_elevation">6dp</dimen>
     <dimen name="default_card_layout_margin">8dp</dimen>
+
+    <dimen name="default_padding">12dp</dimen>
+    <dimen name="thin_padding">6dp</dimen>
+
+    <dimen name="text_size_small">11sp</dimen>
 </resources>

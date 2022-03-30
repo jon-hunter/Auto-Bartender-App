@@ -73,6 +73,7 @@ public class RecipeManager {
         private String description;
         private String id;
         RecipeType type;
+        //TODO image attribute
 
         public Recipe(JSONObject recipe) {
             try {
@@ -172,6 +173,9 @@ public class RecipeManager {
         } catch (MalformedURLException ignored) { }
 
         //TODO observe and catch the result when it comes out the other end
+
+        // Go through all the recipes, check Image files and request them
+
     }
 
     /**
@@ -275,54 +279,8 @@ public class RecipeManager {
     }
 
 
-    public static LinearLayout buildRecipeLayout(Context ctx, String recipeID) {
-        return buildRecipeLayout(ctx, getRecipe(recipeID));
-    }
-
-    public static LinearLayout buildRecipeLayout(Context ctx, Recipe recipe) {
-        LinearLayout ll = new LinearLayout(ctx);
-        ll.setOrientation(LinearLayout.VERTICAL);
-        ll.setDividerDrawable(AppCompatResources.getDrawable(ctx, R.drawable.divider));
-
-        LayoutInflater li = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        if (recipe == null || !recipe.isValid()) {  // No recipe, build 1 default row
-            ll.addView(buildIngredientView(
-                    li,
-                    ctx.getString(R.string.default_ingredient_name),
-                    ctx.getString(R.string.default_ingredient_amount)
-            ));
-            return ll;
-        }
-        // good recipe, build row for each ingredient
-        else for (int i = 0; i < recipe.getNumIngredients(); i++) {
-            Ingredient ingredient = recipe.getIngredient(i);
-            ll.addView(buildIngredientView(
-                    li,
-                    ingredient.id,
-                    String.format(
-                            ctx.getString(R.string.suffix_ml),
-                            ingredient.quantity_ml
-                    )
-            ));
-        }
-
-        return ll;
-    }
-
-    public static View buildIngredientView(LayoutInflater li, String id, String amt) {
-        View view = li.inflate(R.layout.row_ingredient_single, null);
-        TextView ingNameTV = view.findViewById(R.id.ingredient_name);
-        ingNameTV.setText(id);  // TODO id to name lookup
-        TextView ingAmtTV = view.findViewById(R.id.ingredient_amount);
-        ingAmtTV.setText(amt);
-
-        return view;
-    }
-
-
     /**
-     * takes recipe ID and builds a post request body. request contains UUID, timestamp, recipe. in JSON format
+     * takes recipe and builds a post request body. request contains UUID, timestamp, recipe. in JSON format
      *
      * @param recipe the recipe to make into a request
      * @param userID ID of user making request
@@ -354,6 +312,19 @@ public class RecipeManager {
         }
 
         return null;
+    }
+
+
+    public static String makeIngredientList(Recipe recipe, String rowFormat) {
+        StringBuilder sb = new StringBuilder();
+        for (Ingredient ing: recipe) {
+            sb.append(String.format(rowFormat, ing.quantity_ml, ing.id));
+            //TODO unit conversion as sppropriate between mL, oz, shots.
+            //TODO id -> name lookup
+        }
+
+        String ret = sb.toString();
+        return ret.trim();
     }
 
 }

@@ -1,4 +1,4 @@
-package com.example.autobartender.ui.drink_monitor;
+package com.example.autobartender.ui.drink_queue;
 
 import android.content.Context;
 import android.util.Log;
@@ -6,58 +6,79 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.autobartender.R;
+import com.example.autobartender.ui.RecipeInfoHelper;
 import com.example.autobartender.utils.DrinkQueueManager;
 import com.example.autobartender.utils.DrinkQueueManager.Drink;
+import com.example.autobartender.utils.InventoryManager;
 import com.example.autobartender.utils.RecipeManager;
 
-public class DrinkMonitor_RVA extends RecyclerView.Adapter<DrinkMonitor_RVA.RowViewHolder> {
-    public static final String TAG = "DrinkMonitor_RVA";
+public class DrinkQueue_RVA extends RecyclerView.Adapter<DrinkQueue_RVA.RowViewHolder> {
+    public static final String TAG = "DrinkQueue_RVA";
 
     private final LayoutInflater li;
 
-    public DrinkMonitor_RVA(Context ctx) {
+    public DrinkQueue_RVA(Context ctx) {
         this.li = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
 
-    class RowViewHolder extends RecyclerView.ViewHolder {
+    static class RowViewHolder extends RecyclerView.ViewHolder {
+
+        // thumbnail card UI elements
         TextView tvQueuePos;
         TextView tvRecipeName;
         TextView tvUserID;
+        TextView tvReqTM;
         ProgressBar pbProgress;
-        LinearLayout extraInfoLL;
-        ImageView dropdownBtn;
+        ImageView ivDropdownBtn;
+
+        // helper for full info card UI elements
+        RecipeInfoHelper recipeInfoFull;
+
+
 
         public RowViewHolder(@NonNull View itemView) {
             super(itemView);
             Log.d(TAG, "RowViewHolder: init rowviewholder");
-            tvQueuePos = itemView.findViewById(R.id.tv_queue_position);
-            tvRecipeName = itemView.findViewById(R.id.tv_recipe_name);
-            tvUserID = itemView.findViewById(R.id.tv_user_ID);
-            pbProgress = itemView.findViewById(R.id.progressBar);
-            extraInfoLL = itemView.findViewById(R.id.secondaryInfoLayout);
-            extraInfoLL.setDividerDrawable(AppCompatResources.getDrawable(itemView.getContext(), R.drawable.divider));
-            dropdownBtn = itemView.findViewById(R.id.imageButton);
+
+            // Initialize everything (bruh)
+            this.tvQueuePos = itemView.findViewById(R.id.tv_queue_position);
+            this.tvRecipeName = itemView.findViewById(R.id.tv_recipe_name);
+            this.tvUserID = itemView.findViewById(R.id.tv_user_ID);
+            this.tvReqTM = itemView.findViewById(R.id.tv_request_time);
+            this.pbProgress = itemView.findViewById(R.id.progressBar);
+            this.ivDropdownBtn = itemView.findViewById(R.id.btn_expand);
+
+            this.recipeInfoFull = new RecipeInfoHelper(itemView.findViewById(R.id.recipe_info_full));
+
+            // hide full info view, its image, and redundent title
+            this.collapseInfo();
+            this.recipeInfoFull.ivRecipeImg.setVisibility(View.GONE);
+            this.recipeInfoFull.tvRecipeName.setVisibility(View.GONE);
         }
 
-        public void toggleInfoVisibility() {
-            if (extraInfoLL.getVisibility() == View.VISIBLE ) {
-                extraInfoLL.setVisibility(View.GONE);
-                dropdownBtn.setRotation(0);
-            }
-            else {
-                extraInfoLL.setVisibility(View.VISIBLE);
-                dropdownBtn.setRotation(180);
-            }
+        public void toggleVisibility() {
+            if (this.recipeInfoFull.rootView.getVisibility() != View.VISIBLE)
+                expandInfo();
+            else
+                collapseInfo();
+        }
+
+        public void expandInfo() {
+            this.recipeInfoFull.rootView.setVisibility(View.VISIBLE);
+            this.ivDropdownBtn.setRotation(180);
+        }
+
+        public void collapseInfo() {
+            this.recipeInfoFull.rootView.setVisibility(View.GONE);
+            this.ivDropdownBtn.setRotation(0);
         }
     }
 
@@ -91,15 +112,13 @@ public class DrinkMonitor_RVA extends RecyclerView.Adapter<DrinkMonitor_RVA.RowV
         holder.pbProgress.setMax(100);
         holder.pbProgress.setProgress(drink.getProgressPct());
 
-        // Setup extra info, initialy hidden
-        holder.extraInfoLL.setVisibility(View.GONE);
-        holder.extraInfoLL.addView(RecipeManager.buildRecipeLayout(li.getContext(), drink.recipe));
-        //TODO fill in LL with a row_ingredient_single for each ingredient in the recipe for the drink in question
+        // Setup full info view
+        holder.recipeInfoFull.init(drink.recipe, li.getContext());
 
         // Setup click handler
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { holder.toggleInfoVisibility(); }
+            public void onClick(View v) { holder.toggleVisibility(); }
         });
     }
 

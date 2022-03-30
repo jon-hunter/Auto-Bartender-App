@@ -6,7 +6,7 @@
     tools:context=".ui.main_activity.MainActivity">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvRecipeList"
+            android:id="@+id/rev_recipe_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 </LinearLayout>

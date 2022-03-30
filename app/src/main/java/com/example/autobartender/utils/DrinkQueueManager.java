@@ -47,7 +47,7 @@ public class DrinkQueueManager {
 
 
         public int getProgressPct() {
-            return (int) this.progress * 100;
+            return (int)( this.progress * 100);
         }
     }
 

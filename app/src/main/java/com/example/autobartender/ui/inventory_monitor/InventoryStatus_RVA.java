@@ -43,7 +43,7 @@ public class InventoryStatus_RVA extends RecyclerView.Adapter<InventoryStatus_RV
     @NonNull
     @Override
     public RowViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new RowViewHolder(li.inflate(R.layout.row_inventory_status, parent, false));
+        return new RowViewHolder(li.inflate(R.layout.row_inventory_status_info, parent, false));
     }
 
     @Override

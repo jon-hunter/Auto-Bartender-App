@@ -9,15 +9,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.autobartender.R;
-import com.example.autobartender.utils.Constants;
+import com.example.autobartender.ui.RecipeInfoHelper;
 import com.example.autobartender.utils.RecipeManager;
 import com.example.autobartender.utils.RecipeManager.Recipe;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class RecipeView_RVA extends RecyclerView.Adapter<RecipeView_RVA.RowViewHolder> {
     private static final String TAG = "RecipeView_RVA";
@@ -29,31 +27,79 @@ public class RecipeView_RVA extends RecyclerView.Adapter<RecipeView_RVA.RowViewH
     }
 
 
+    static class RowViewHolder extends RecyclerView.ViewHolder {
+        Recipe recipe;  // Save reference to recipe to pass along onClick
+
+        // Thumbnail card UI elements
+        ConstraintLayout rootViewThumb;
+        TextView tvTitle;
+        TextView tvDescription;
+        ImageView ivThumbnail;
+
+        // helper for full info card
+        RecipeInfoHelper recipeInfoFull;
+
+        public RowViewHolder(@NonNull View itemView) {
+            super(itemView);
+            this.rootViewThumb = itemView.findViewById(R.id.recipe_info_thumb);
+            this.tvTitle = (TextView)itemView.findViewById(R.id.tv_title_thumb);
+            this.tvDescription = (TextView)itemView.findViewById(R.id.tv_description_thumb);
+            this.ivThumbnail = (ImageView) itemView.findViewById(R.id.iv_thumbnail);
+
+            this.recipeInfoFull = new RecipeInfoHelper(itemView.findViewById(R.id.recipe_info_full));
+
+            // hide full info view
+            this.collapseInfo();
+        }
+
+        public void toggleVisibility() {
+            if (this.recipeInfoFull.rootView.getVisibility() != View.VISIBLE)
+                expandInfo();
+            else
+                collapseInfo();
+        }
+
+        public void expandInfo() {
+            this.recipeInfoFull.rootView.setVisibility(View.VISIBLE);
+            this.rootViewThumb.setVisibility(View.GONE);
+        }
+
+        public void collapseInfo() {
+            this.recipeInfoFull.rootView.setVisibility(View.GONE);
+            this.rootViewThumb.setVisibility(View.VISIBLE);
+        }
+    }
+
+
     @NonNull
     @Override
     public RowViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = li.inflate(R.layout.row_recipe_info, parent, false);
-        return new RowViewHolder(view); //the new one
+        return new RowViewHolder(li.inflate(R.layout.row_recipe_info, parent, false));
     }
 
 
     @Override
     public void onBindViewHolder(@NonNull  RowViewHolder holder, int position) {
+        Log.d(TAG, "onBindViewHolder: binding viewholder index " + position);
+
         Recipe recipe = RecipeManager.getRecipe(position);
         //TODO: make the order parameterized so this list can be populated differently
 
-        holder.recipeID = recipe.getID();
+        holder.recipe = recipe;
         holder.tvTitle.setText(recipe.getName());
         holder.tvDescription.setText(recipe.getDescription());
+        //TODO set recipe thumbnail image
+
+        // Setup full info
+        holder.recipeInfoFull.init(recipe, li.getContext());
+
 
         // Setup click handler
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick: rowviewholder clicked: " + holder.recipeID);
-//                if (!RecipeManager.setSelectedRecipe(holder.recipeID)) {
-//                    Log.d(TAG, "onClick: setting selected recipe failed: id " + holder.recipeID);
-//                }
+                Log.d(TAG, "onClick: rowviewholder clicked: " + holder.recipe.getID());
+                holder.toggleVisibility();
             }
         });
     }
@@ -62,20 +108,5 @@ public class RecipeView_RVA extends RecyclerView.Adapter<RecipeView_RVA.RowViewH
     @Override
     public int getItemCount() {
         return RecipeManager.getNumRecipes();
-    }
-
-
-    static class RowViewHolder extends RecyclerView.ViewHolder {
-        TextView tvTitle;
-        TextView tvDescription;
-        ImageView ivThumbnail;
-        String recipeID;
-
-        public RowViewHolder(@NonNull View itemView) {
-            super(itemView);
-            this.tvTitle = (TextView)itemView.findViewById(R.id.title);
-            this.tvDescription = (TextView)itemView.findViewById(R.id.description);
-            this.ivThumbnail = (ImageView) itemView.findViewById(R.id.thumbnail);
-        }
     }
 }

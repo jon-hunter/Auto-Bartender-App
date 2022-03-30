@@ -33,7 +33,7 @@ public class InventoryStatusFragment extends Fragment implements View.OnClickLis
         Log.d(TAG, "onViewCreated: created");
 
         // init the recyclerview
-        rv = getActivity().findViewById(R.id.rvIngredients);
+        rv = getActivity().findViewById(R.id.rv_ingredients);
         rv.setLayoutManager(new LinearLayoutManager(view.getContext()));
         rva = new InventoryStatus_RVA(view.getContext());
         rv.setAdapter(rva);
@@ -65,7 +65,7 @@ public class InventoryStatusFragment extends Fragment implements View.OnClickLis
     public void onClick(View v) {
         Log.d(TAG, "onClick: Click handling...");
         switch (v.getId()) {
-            case R.id.refresh_btn:
+            case R.id.btn_refresh:
                 InventoryManager.updateInventory();
                 break;
         }

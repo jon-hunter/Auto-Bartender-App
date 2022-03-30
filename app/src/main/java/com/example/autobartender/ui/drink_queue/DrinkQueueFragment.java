@@ -1,9 +1,8 @@
-package com.example.autobartender.ui.drink_monitor;
+package com.example.autobartender.ui.drink_queue;
 
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,20 +12,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.autobartender.R;
-import com.example.autobartender.ui.recipe_list.RecipeView_RVA;
 import com.example.autobartender.utils.DrinkQueueManager;
 import com.example.autobartender.utils.SimpleObserverManager;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link DrinkMonitorFragment#newInstance} factory method to
+ * Use the {@link DrinkQueueFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DrinkMonitorFragment extends Fragment implements SimpleObserverManager.SimpleObserver {
+public class DrinkQueueFragment extends Fragment implements SimpleObserverManager.SimpleObserver {
     private static final String TAG  = "DrinkMonitorFragment";
 
     private RecyclerView rv;
-    private DrinkMonitor_RVA rva;
+    private DrinkQueue_RVA rva;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -36,9 +34,9 @@ public class DrinkMonitorFragment extends Fragment implements SimpleObserverMana
     public void onViewCreated(View view, Bundle savedInstanceState) {
         Log.d(TAG, "onViewCreated: created");
 
-        rv = getActivity().findViewById(R.id.rvDrinkQueue);
+        rv = getActivity().findViewById(R.id.rv_drink_queue);
         rv.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        rva = new DrinkMonitor_RVA(view.getContext());
+        rva = new DrinkQueue_RVA(view.getContext());
         rv.setAdapter(rva);
 
         // Make network call to populate data

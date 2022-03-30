@@ -8,16 +8,17 @@
     tools:context=".ui.inventory_monitor.InventoryStatusFragment">
 
     <TextView
-        android:id="@+id/slot"
+        android:id="@+id/tv_slot"
         android:text="@string/slot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="12dp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:padding="@dimen/default_padding"
+        app:layout_constraintTop_toTopOf="@id/btn_refresh"
+        app:layout_constraintBottom_toBottomOf="@id/btn_refresh"
         app:layout_constraintStart_toStartOf="parent"/>
 
     <Button
-        android:id="@+id/refresh_btn"
+        android:id="@+id/btn_refresh"
         android:text="@string/refresh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,10 +31,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="slot,refresh_btn"/>
+        app:constraint_referenced_ids="tv_slot,btn_refresh"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvIngredients"
+        android:id="@+id/rv_ingredients"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/barrier"

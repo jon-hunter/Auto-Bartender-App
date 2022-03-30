@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="state_can_make_drink" format="boolean" />
+</resources>

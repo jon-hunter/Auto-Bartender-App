@@ -6,9 +6,12 @@ import org.json.JSONObject;
 
 import java.net.URI;
 
-public class NetworkFTPRequest {
+public class NetworkFTPRequest extends Thread {
 
-    public NetworkFTPRequest(URI uri, MutableLiveData<JSONObject> returndata) {
+//    public static void getImage()
+
+
+    public NetworkFTPRequest(URI uri, MutableLiveData<Byte[]> returndata) {
         //TODO implement
     }
 }

@@ -1,6 +1,5 @@
 package com.example.autobartender.ui.recipe_list;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +7,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,7 +28,7 @@ public class RecipeListFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         // Init the recyclerview
-        RecyclerView rv = getActivity().findViewById(R.id.rvRecipeList);
+        RecyclerView rv = getActivity().findViewById(R.id.rev_recipe_list);
         RecipeView_RVA rva = new RecipeView_RVA(view.getContext());
         rv.setAdapter(rva);
 
