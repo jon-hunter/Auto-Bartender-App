@@ -36,7 +36,7 @@
         android:ellipsize="none"
         android:layout_height="wrap_content"
         android:maxHeight="24dp"
-        android:background="@drawable/recipe_status_unavailable"
+        android:background="@drawable/status_bad"
         android:paddingHorizontal="12dp"
         android:paddingVertical="2dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,12 +70,21 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/tv_description_full"/>
 
+    <TextView
+        android:id="@+id/tv_alc_content"
+        android:text="@string/default_alcohol_content"
+        android:paddingHorizontal="@dimen/default_padding"
+        android:paddingVertical="@dimen/thin_padding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_ingredient_list"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/tv_ingredient_list">
+        app:layout_constraintTop_toBottomOf="@id/tv_alc_content">
 
         <Button
             android:id="@+id/btn_order"

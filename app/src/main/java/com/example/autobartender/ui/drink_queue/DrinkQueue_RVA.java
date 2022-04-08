@@ -14,10 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.autobartender.R;
 import com.example.autobartender.ui.RecipeInfoHelper;
+import com.example.autobartender.utils.Constants;
 import com.example.autobartender.utils.DrinkQueueManager;
 import com.example.autobartender.utils.DrinkQueueManager.Drink;
-import com.example.autobartender.utils.InventoryManager;
-import com.example.autobartender.utils.RecipeManager;
 
 public class DrinkQueue_RVA extends RecyclerView.Adapter<DrinkQueue_RVA.RowViewHolder> {
     public static final String TAG = "DrinkQueue_RVA";
@@ -33,8 +32,8 @@ public class DrinkQueue_RVA extends RecyclerView.Adapter<DrinkQueue_RVA.RowViewH
 
         // thumbnail card UI elements
         TextView tvQueuePos;
-        TextView tvRecipeName;
-        TextView tvUserID;
+        TextView tvRecipeNameUID;
+        TextView tvServerStatus;
         TextView tvReqTM;
         ProgressBar pbProgress;
         ImageView ivDropdownBtn;
@@ -50,8 +49,8 @@ public class DrinkQueue_RVA extends RecyclerView.Adapter<DrinkQueue_RVA.RowViewH
 
             // Initialize everything (bruh)
             this.tvQueuePos = itemView.findViewById(R.id.tv_queue_position);
-            this.tvRecipeName = itemView.findViewById(R.id.tv_recipe_name);
-            this.tvUserID = itemView.findViewById(R.id.tv_user_ID);
+            this.tvRecipeNameUID = itemView.findViewById(R.id.tv_recipe_name_user_id);
+            this.tvServerStatus = itemView.findViewById(R.id.tv_server_status);
             this.tvReqTM = itemView.findViewById(R.id.tv_request_time);
             this.pbProgress = itemView.findViewById(R.id.progressBar);
             this.ivDropdownBtn = itemView.findViewById(R.id.btn_expand);
@@ -94,19 +93,41 @@ public class DrinkQueue_RVA extends RecyclerView.Adapter<DrinkQueue_RVA.RowViewH
     public void onBindViewHolder(@NonNull RowViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: binding viewholder index " + position);
 
-        // Set main textviews
-        holder.tvQueuePos.setText(Integer.toString(position + 1));
+        holder.tvQueuePos.setText(String.format("%d", position + 1));
+
         Drink drink = DrinkQueueManager.getDrink(position);
 
+        // Set recipeName & userId textview
+        String recipeNm;
         if (drink.recipe.getName() != null)
-            holder.tvRecipeName.setText(drink.recipe.getName());
+            recipeNm = drink.recipe.getName();
         else
-            holder.tvRecipeName.setText(R.string.default_recipe_name);
+            recipeNm = li.getContext().getString(R.string.default_recipe_name);
 
+        String uId;
         if (drink.userID != null)
-            holder.tvUserID.setText(drink.userID);
+            uId = drink.userID;
         else
-            holder.tvUserID.setText(R.string.default_user);
+            uId = li.getContext().getString(R.string.default_user);
+
+        holder.tvRecipeNameUID.setText(String.format(
+                li.getContext().getString(R.string.recipe_name_user_id),
+                recipeNm,
+                uId
+        ));
+
+        // set requestTime textview
+        holder.tvReqTM.setText(Constants.formatTimeDifference(drink.requestTime, li.getContext()));
+
+        // Set server status textview
+        if (drink.inMachineQueue) {
+            holder.tvServerStatus.setText(R.string.server_sync_yes);
+            holder.tvServerStatus.setBackgroundResource(R.drawable.status_good);
+        }
+        else {
+            holder.tvServerStatus.setText(R.string.server_sync_no);
+            holder.tvServerStatus.setBackgroundResource(R.drawable.status_bad);
+        }
 
         // Setup progressbar
         holder.pbProgress.setMax(100);

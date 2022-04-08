@@ -8,20 +8,20 @@
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        card_view:cardCornerRadius="12dp"
-        card_view:cardElevation="4dp"
-        android:layout_margin="10dp" >
+        card_view:cardCornerRadius="@dimen/default_card_corner_rad"
+        card_view:cardElevation="@dimen/default_card_elevation"
+        android:layout_margin="@dimen/default_card_layout_margin" >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp" >
+            android:padding="@dimen/default_padding" >
 
             <TextView
                 android:id="@+id/slot_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="12dp"
+                android:padding="@dimen/default_padding"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
 
@@ -30,7 +30,7 @@
                 android:text="@string/default_ingredient_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="12dp"
+                android:padding="@dimen/default_padding"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toEndOf="@id/slot_number" />
 
@@ -39,7 +39,7 @@
                 android:text="@string/default_ingredient_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="12dp"
+                android:padding="@dimen/default_padding"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toEndOf="@id/ingredient_title"/>
 

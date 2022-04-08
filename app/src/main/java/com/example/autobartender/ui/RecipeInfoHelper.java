@@ -1,6 +1,7 @@
 package com.example.autobartender.ui;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -9,7 +10,9 @@ import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.autobartender.R;
+import com.example.autobartender.utils.DrinkQueueManager;
 import com.example.autobartender.utils.InventoryManager;
+import com.example.autobartender.utils.PrefsManager;
 import com.example.autobartender.utils.RecipeManager;
 import com.example.autobartender.utils.RecipeManager.Recipe;
 
@@ -25,6 +28,7 @@ public class RecipeInfoHelper {
     public TextView canMakeRecipe;
     public TextView tvDescription;
     public TextView tvIngList;
+    public TextView tvAlcPct;
     public Button btnOrder;
     public Button btnEdit;
     public ImageButton btnFav;
@@ -36,6 +40,7 @@ public class RecipeInfoHelper {
         this.canMakeRecipe = rootView.findViewById(R.id.can_make_drink);
         this.tvDescription = rootView.findViewById(R.id.tv_description_full);
         this.tvIngList = rootView.findViewById(R.id.tv_ingredient_list);
+        this.tvAlcPct = rootView.findViewById(R.id.tv_alc_content);
         this.btnOrder = rootView.findViewById(R.id.btn_order);
         this.btnEdit = rootView.findViewById(R.id.btn_edit);
         this.btnFav = rootView.findViewById(R.id.btn_favorite);
@@ -54,11 +59,11 @@ public class RecipeInfoHelper {
 
         if (InventoryManager.canMakeRecipe(recipe)) {
             canMakeRecipe.setText(R.string.can_make_drink);
-            canMakeRecipe.setBackgroundResource(R.drawable.recipe_status_available);
+            canMakeRecipe.setBackgroundResource(R.drawable.status_good);
         }
         else {
             canMakeRecipe.setText(R.string.cant_make_drink);
-            canMakeRecipe.setBackgroundResource(R.drawable.recipe_status_unavailable);
+            canMakeRecipe.setBackgroundResource(R.drawable.status_bad);
         }
 
         this.tvDescription.setText(recipe.getDescription());
@@ -67,9 +72,28 @@ public class RecipeInfoHelper {
         this.tvIngList.setText(
                 RecipeManager.makeIngredientList(
                         recipe,
-                        ctx.getString(R.string.ingredient_list_row_mL)
+                        ctx.getString(R.string.ingredient_list_row_mL),
+                        ctx
                 )
         );
+
+        this.tvAlcPct.setText(String.format(
+                ctx.getString(R.string.recipe_alcolol_pct_format),
+                recipe.getAlcPct()
+        ));
+
+        // Onclick listeners
+        this.btnOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { DrinkQueueManager.postDrink(recipe, PrefsManager.getUserID()); }
+        });
+
+        this.btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO implement
+            }
+        });
     }
 
 

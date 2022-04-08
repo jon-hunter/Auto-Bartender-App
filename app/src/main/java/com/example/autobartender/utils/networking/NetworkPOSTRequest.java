@@ -1,70 +1,37 @@
-package com.example.autobartender.utils;
+package com.example.autobartender.utils.networking;
 
-import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.autobartender.R;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.example.autobartender.utils.Constants;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.UUID;
 
 public class NetworkPOSTRequest extends Thread{
-    private static final String TAG = "NetworkPOSTRequest";
+    private static final String TAG = NetworkPOSTRequest.class.getName();
 
     private final URL url;
     private final String requestBody;
-    private final MutableLiveData<JSONObject> returnData;
+    private final MutableLiveData<String> returnData;
     public int statusCode;
 
-    public MutableLiveData<JSONObject> getReturnData() {
+    public MutableLiveData<String> getReturnData() {
         return returnData;
     }
 
 
-    public NetworkPOSTRequest(URL url, String reqBody, MutableLiveData<JSONObject> returnData) {
+    public NetworkPOSTRequest(URL url, String reqBody, MutableLiveData<String> returnData) {
         this.url = url;
         this.requestBody = reqBody;
         this.returnData = returnData;
     }
-
-
-//    public static NetworkPOSTRequest requestDrink() {
-//        // Add appropriate path to end of URL and start thread
-//        try {
-//            URL url = Constants.getURLBase().resolve(Constants.URL_PATH_DRINK).toURL();
-//
-//            DrinkRequestThread sendJSONThread = new DrinkRequestThread(
-//                    url,
-//                    createDrinkRequest(recipeManager.getSelectedRecipeID())
-//            );
-//            sendJSONThread.start();
-//            return sendJSONThread;
-//        } catch (MalformedURLException e) {
-//            Log.d(TAG, "requestDrink: MALFORMED URL. This is hardcoded so should not happen");
-//            Log.d(TAG, String.format(
-//                    "requestDrink: URLBASE = %s, path = %s",
-//                    Constants.getURLBase(),
-//                    Constants.URL_PATH_DRINK
-//            ));
-//        }
-//        return null;
-//    }
 
 
     public void run() {
@@ -94,29 +61,21 @@ public class NetworkPOSTRequest extends Thread{
             Log.d(TAG, "run: connection statuscode=" + statusCode);
             if (statusCode / 100 != 2) {
                 Log.d(TAG, "run: error. May not updating data");
-//                    resultInfo.postValue("request error, code " + statusCode);
             }
-            Log.d(TAG, "run: made it here");
-
 
             // build response string
             StringBuilder responseBuilder = new StringBuilder();
-            Log.d(TAG, "run: stringbuilder init'd");
             try (BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8))) {
-                Log.d(TAG, "run: buffereader initd");
                 String responseLine = null;
                 while ((responseLine = br.readLine()) != null) {
-                    Log.d(TAG, "run: in the loop");
                     responseBuilder.append(responseLine.trim());
                 }
                 Log.d(TAG, "run: response: " + responseBuilder.toString());
-                returnData.postValue(new JSONObject(responseBuilder.toString()));
-
+                returnData.postValue(responseBuilder.toString());
             }
 
-        } catch (IOException | JSONException e) {
-            Log.d(TAG, "run: error: " + e.toString());
-//                resultInfo.postValue(e.toString());
+        } catch (IOException e) {
+            Log.d(TAG, "run: error: " + e.getLocalizedMessage());
         } finally {
             if (connection != null)
                 connection.disconnect();

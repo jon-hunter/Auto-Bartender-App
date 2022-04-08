@@ -1,4 +1,4 @@
-package com.example.autobartender.utils;
+package com.example.autobartender.utils.networking;
 
 import androidx.lifecycle.MutableLiveData;
 

@@ -1,4 +1,4 @@
-package com.example.autobartender.ui.inventory_monitor;
+package com.example.autobartender.ui.inventory_status;
 
 import android.os.Bundle;
 
@@ -17,8 +17,8 @@ import com.example.autobartender.R;
 import com.example.autobartender.utils.InventoryManager;
 import com.example.autobartender.utils.SimpleObserverManager;
 
-public class InventoryStatusFragment extends Fragment implements View.OnClickListener, SimpleObserverManager.SimpleObserver {
-    private final String TAG = "InventoryStatusFragment";
+public class InventoryStatusFragment extends Fragment implements SimpleObserverManager.SimpleObserver {
+    private final String TAG = InventoryStatusFragment.class.getName();
 
     private RecyclerView rv;
     private InventoryStatus_RVA rva;
@@ -32,15 +32,14 @@ public class InventoryStatusFragment extends Fragment implements View.OnClickLis
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         Log.d(TAG, "onViewCreated: created");
 
+        // Register as inventory observer
+        InventoryManager.observers.register(this);
+
         // init the recyclerview
         rv = getActivity().findViewById(R.id.rv_ingredients);
         rv.setLayoutManager(new LinearLayoutManager(view.getContext()));
         rva = new InventoryStatus_RVA(view.getContext());
         rv.setAdapter(rva);
-
-        // Make network call to populate data
-        InventoryManager.observers.register(this);
-        InventoryManager.updateInventory();
     }
 
     public void onDestroy() {
@@ -59,16 +58,6 @@ public class InventoryStatusFragment extends Fragment implements View.OnClickLis
 
         // Populate spinner by telling it to repopulate itself lol
         rva.notifyDataSetChanged();
-    }
-
-    @Override
-    public void onClick(View v) {
-        Log.d(TAG, "onClick: Click handling...");
-        switch (v.getId()) {
-            case R.id.btn_refresh:
-                InventoryManager.updateInventory();
-                break;
-        }
     }
 
 }

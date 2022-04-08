@@ -2,15 +2,11 @@
     <string name="app_name">Auto Bartender</string>
 
     <!--    Menu bar labels and info-->
-
-    <string name="action_settings">Settings</string>
-
     <string name="title_activity_recipe_list">Recipe List</string>
     <string name="title_activity_inv_status">Inventory Status</string>
-    <string name="title_activity_drink_status">Drink Status</string>
-    <string name="title_activity_order_info">OrderInfo</string>
+    <string name="title_activity_drink_status">Drink Queue</string>
 
-<!--    default values-->
+    <!--    default values-->
     <string name="default_title">Title</string>
     <string name="default_description">Description</string>
     <string name="default_ingredient_list">• -- oz unknown ingredient\n• -- shots unknown ingredient</string>
@@ -18,21 +14,43 @@
     <string name="default_ingredient_amount">-- mL</string>
     <string name="default_recipe_name">Unknown Recipe</string>
     <string name="default_user">Unknown User</string>
+    <string name="default_alcohol_content">Unknown Proof</string>
 
-    <string name="can_make_drink">Ready to make</string>
-    <string name="cant_make_drink">Recipe unavailable</string>
+    <!--    recipe list activity - sort orders are meant to be looked up by name - see RecipeManager.RecipeSortOrder-->
     <string name="order_button">Order this drink now</string>
     <string name="edit_drink">Edit Drink</string>
+    <string name="SORT_ORDER_ALPHABETICAL">Alphabetical</string>
+    <string name="SORT_ORDER_RECENT">Most Recent</string>
+    <string name="SORT_ORDER_ALC_CONTENT_HL">Proof ↘️</string>
+    <string name="SORT_ORDER_ALC_CONTENT_LH">Proof ↗️</string>
+    <string name="SORT_ORDER_DEFAULT">No Sorting</string>
+
+
+
+<!--    TODO sort and organize-->
+    <string name="can_make_drink">Ready to make</string>
+    <string name="cant_make_drink">Recipe unavailable</string>
 
     <string name="ingredient_list_row_mL">• %d mL %s \n</string>
 
     <!--    Ingredient naming activity-->
     <string name="no_ingredient">No Ingredient Installed</string>
-    <string name="unknown_ingredient">"Unknown Ingredient: %s"</string>
     <string name="slot">Slot:</string>
     <string name="suffix_ml">%d mL</string>
     <string name="refresh">Refresh</string>
     <string name="image">Image of a drink</string>
+    
+<!--    Ingredient Names-->
+<!--    TODO make more of them and sort alphabetically-->
+    <string name="ING_NAME_UNKNOWN">"Unknown Ingredient"</string>
+    <string name="ING_NAME_VODKA">Vodka</string>
+    <string name="ING_NAME_TEQUILA">Tequila</string>
+    <string name="ING_NAME_RUM">Rum</string>
+    <string name="ING_NAME_GIN">Gin</string>
+    <string name="ING_NAME_FIREBALL">Fireball Whisky</string>
+    <string name="ING_NAME_COKE">Coke</string>
+    <string name="ING_NAME_OJ">Orange Juice</string>
+    <string name="ING_NAME_FRUIT_PUNCH">Fruit Punch</string>
 
     <string name="empty"> </string>
 
@@ -40,27 +58,59 @@
     <string name="order_status_working">Sending drink request…</string>
     <string name="order_status_success">Drink request successful (:</string>
 
-    <!--    non-ideal implementation of a lookup table to get ingredient names from IDs-->
-    <array name="ingredient_names">
-        <item>Vodka</item>
-        <item>Rum</item>
-        <item>Tequila</item>
-        <item>Alcohol</item>
-        <item>Fireball</item>
-        <item>Whiskey</item>
-        <item>Schnapps?</item>
-        <item>Soda</item>
-    </array>
-    <array name="ingredient_IDs">
-        <item>VODKA</item>
-        <item>RUM</item>
-        <item>TEQUILA</item>
-        <item>ALCOHOL</item>
-        <item>FIREBALL</item>
-        <item>WHISKEY</item>
-        <item>SCHNAPPS</item>
-        <item>SODA</item>
-    </array>
+    <string name="server_sync_yes">Synced to Machine</string>
+    <string name="server_sync_no">Not Synced</string>
+
+    <string name="recipe_name_user_id">%s - %s</string>
+    <string name="recipe_alcolol_pct_format">%d%% Alcohol</string>
+
     <string name="drink_queue">Drink Queue</string>
     <string name="add_to_favorites">Add to favorites</string>
+
+    <!-- Preferences and Settings Activity-->
+    <string name="settings">Settings</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="pref_category_user_title">User Preferences</string>
+    <string name="pref_category_network_title">Network Data Preferences</string>
+
+    <string name="pref_userID_title">Username</string>
+    <string name="pref_userID_summary">Your username is used to identify you and keep track of which drinks belong to you</string>
+
+    <string name="pref_serverURL_title">Network Configuration</string>
+    <string name="pref_serverURL_summary">Set appropriate networking parameters to enable connections between different configurations of this app and your Auto Bartender</string>
+    <array name="pref_serverURL_entries">
+        <item>Connect app emulator to local Simulator</item>
+        <item>Connect app emulator to local hard-valued server</item>
+    </array>
+
+    <string name="pref_recipeDB_title">Recipe Database Location</string>
+    <string name="pref_recipeDB_summary">Select which recipe database to use</string>
+    <array name="pref_recipeDB_entries">
+        <item>Get recipes from CNU File Server</item>
+        <item>Get recipes from hardcoded local DB server</item>
+    </array>
+
+
+    <string name="pref_inv_refresh_tm_title">Inventory Refresh Time</string>
+    <string name="pref_inv_refresh_tm_summary">Time in seconds between inventory refreshes</string>
+
+    <string name="pref_dq_refresh_tm_title">Drink Queue Refresh Time</string>
+    <string name="pref_dq_refresh_tm_summary">Time in seconds between drink queue refreshes</string>
+
+    <!--    Datetime foolery ): -->
+    <string name="time_ago_main">%s ago</string>
+    <string name="time_ago_now">Just now</string>
+    <string name="time_ago_d">%dd</string>
+    <string name="time_ago_h">%dh</string>
+    <string name="time_ago_m">%dm</string>
+    <string name="time_ago_s">%ds</string>
+
+<!--    Recipe editing activity-->
+    <string name="recipe_name">Recipe Name</string>
+    <string name="recipe_name_hint">Enter your recipe name here</string>
+    <string name="recipe_description">Recipe Description</string>
+    <string name="recipe_description_hint">Enter your recipe description here</string>
+    <string name="recipe_add_ingredient">Add Ingredient</string>
+    <string name="description_ingredient_amount">Amount of ingredient</string>
+    <string name="new_recipe">New Recipe</string>
 </resources>

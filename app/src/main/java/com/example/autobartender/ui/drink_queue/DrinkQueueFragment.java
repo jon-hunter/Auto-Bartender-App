@@ -21,7 +21,7 @@ import com.example.autobartender.utils.SimpleObserverManager;
  * create an instance of this fragment.
  */
 public class DrinkQueueFragment extends Fragment implements SimpleObserverManager.SimpleObserver {
-    private static final String TAG  = "DrinkMonitorFragment";
+    private static final String TAG = DrinkQueueFragment.class.getSimpleName();
 
     private RecyclerView rv;
     private DrinkQueue_RVA rva;
@@ -34,14 +34,13 @@ public class DrinkQueueFragment extends Fragment implements SimpleObserverManage
     public void onViewCreated(View view, Bundle savedInstanceState) {
         Log.d(TAG, "onViewCreated: created");
 
+        // Register as drink queue observer
+        DrinkQueueManager.observers.register(this);
+
         rv = getActivity().findViewById(R.id.rv_drink_queue);
         rv.setLayoutManager(new LinearLayoutManager(view.getContext()));
         rva = new DrinkQueue_RVA(view.getContext());
         rv.setAdapter(rva);
-
-        // Make network call to populate data
-        DrinkQueueManager.observers.register(this);
-        DrinkQueueManager.updateDrinkQueue();
     }
 
     public void onDestroy() {

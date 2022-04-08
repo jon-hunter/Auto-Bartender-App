@@ -1,4 +1,4 @@
-package com.example.autobartender.ui.inventory_monitor;
+package com.example.autobartender.ui.inventory_status;
 
 import android.content.Context;
 import android.util.Log;
@@ -15,7 +15,7 @@ import com.example.autobartender.R;
 import com.example.autobartender.utils.InventoryManager;
 
 public class InventoryStatus_RVA extends RecyclerView.Adapter<InventoryStatus_RVA.RowViewHolder> {
-    final String TAG = "InventoryStatus_RVA";
+    final String TAG = InventoryStatus_RVA.class.getName();
 
     private final LayoutInflater li;
 

@@ -9,17 +9,25 @@ import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Date;
 
 import com.example.autobartender.utils.RecipeManager.Recipe;
+import com.example.autobartender.utils.RecipeManager.RecipeIngredient;
+import com.example.autobartender.utils.networking.HTTPGETBase.RequestStatus;
+import com.example.autobartender.utils.networking.HTTPGETJSONObject;
 
 
 public class InventoryManager {
-    private static final String TAG = "InventoryManager";
+    private static final String TAG = InventoryManager.class.getName();
 
     private static JSONObject inventory;
     public static SimpleObserverManager observers;
+    private static HTTPGETJSONObject requestThread;
+    private static JSONObject inventory() {
+        if (observers.timeSinceUpdate() > PrefsManager.getMaxInventoryAge())
+            updateInventory();
+
+        return inventory;
+    }
 
 
     // Initialize everything
@@ -28,6 +36,7 @@ public class InventoryManager {
 
         observers = new SimpleObserverManager();
         inventory = new JSONObject();
+        requestThread = null;
     }
 
 
@@ -35,54 +44,71 @@ public class InventoryManager {
      * Begin network request to update inventory.
      */
     public static void updateInventory() {
+        // Ensure dont already have active thread
+        if (requestThread != null)
+            return;
+
         Log.d(TAG, "updateInventory: updating");
 
         // Setup URL
         URL url = null;
         try {
-            //TODO fix this crappy workaround lol
-//            url = Constants.getURLBase().resolve(Constants.URL_PATH_INVENTORY).toURL();
-            url = new URL("http://10.0.2.2:8000/INVENTORY.JSON");
+            url = PrefsManager.getURLBase().resolve(Constants.URL_PATH_INVENTORY).toURL();
         } catch (MalformedURLException e) {
             Log.d(TAG, "updateInventory: MALFORMED URL. This is hardcoded so should not happen");
             Log.d(TAG, String.format(
                     "updateInventory: URLBASE = %s, path = %s",
-                    Constants.getURLBase(),
+                    PrefsManager.getURLBase(),
                     Constants.URL_PATH_INVENTORY
             ));
         }
 
-        // Setup return data observer
-        MutableLiveData<String> rawInventory = new MutableLiveData<String>();
-        rawInventory.observeForever(new Observer<String>() {
+        // Setup return data and status observer
+        MutableLiveData<RequestStatus> requestStatus = new MutableLiveData<RequestStatus>();
+        requestStatus.observeForever(new Observer<RequestStatus>() {
             @Override
-            public void onChanged(String s) {
-                onInventoryUpdate(s);
-            }
+            public void onChanged(RequestStatus s) { onInventoryUpdate(s); }
         });
 
         // Start thread, passing return data observer
-        NetworkGETRequest inventoryRequest = new NetworkGETRequest(url, rawInventory);
-        inventoryRequest.start();
+        requestThread = new HTTPGETJSONObject(url, requestStatus);
+        requestThread.start();
     }
 
 
-    private static void onInventoryUpdate(String s) {
-        try {
-            inventory = new JSONObject(s);
-        } catch (JSONException e) {
-            Log.d(TAG, "onInventoryUpdate: JSON error loading data from server: " + e.getLocalizedMessage());
+    private static void onInventoryUpdate(RequestStatus s) {
+        if (s != RequestStatus.DONE_SUCCESS) {
+            Log.d(TAG, "onInventoryUpdate: status is fail. oops");
+            nullThread();
+            return;
         }
 
+        inventory = requestThread.getJsonObject();
         observers.update();
+        nullThread();
     }
 
+    /**
+     * joins thread then sets it to null. hopefully its finished already
+     */
+    private static void nullThread() {
+        if (requestThread == null)
+            return;
 
+        try {
+            Log.d(TAG, "nullThread: calling thread.join, thread should already be done");
+            requestThread.join();
+        } catch (InterruptedException e) {
+            Log.d(TAG, "nullThread: " + e.getLocalizedMessage());
+        } finally {
+            requestThread = null;
+        }
+    }
 
 
     public static int getMaxCapacity() {
         try {
-            return inventory.getInt(Constants.MAX_QUANTITY);
+            return inventory().getInt(Constants.MAX_QUANTITY);
         } catch (JSONException e) {
             Log.d(TAG, "getMaxCapacity: inventory missing MAX_QUANTITY int item");
             return 1;
@@ -91,7 +117,7 @@ public class InventoryManager {
 
     public static int getNumSlots() {
         try {
-            return inventory.getInt(Constants.NUM_SLOTS);
+            return inventory().getInt(Constants.NUM_SLOTS);
         } catch (JSONException e) {
             Log.d(TAG, "getNumSlots: inventory missing NUM_SLOTS int item");
             return 1;
@@ -100,9 +126,9 @@ public class InventoryManager {
 
     public static String getIngredientID(int slotIndex) {
         try {
-            return inventory.getJSONArray(Constants.SLOTS).getJSONObject(slotIndex).getString(Constants.INGREDIENT);
+            return inventory().getJSONArray(Constants.SLOTS).getJSONObject(slotIndex).getString(Constants.INGREDIENT);
         } catch (JSONException e) {
-            Log.d(TAG, "getIngredientID: inventory json issue getting inv[SLOTS][int][INGREDIENT]");
+            Log.d(TAG, "getIngredientID: inventory json issue getting inv[SLOTS][int][INGREDIENT] - " + e.getLocalizedMessage());
             //TODO better default return
             return "";
         }
@@ -110,7 +136,7 @@ public class InventoryManager {
 
     public static int getIngredientQuantity(int slotIndex) {
         try {
-            return inventory.getJSONArray(Constants.SLOTS).getJSONObject(slotIndex).getInt(Constants.QUANTITY);
+            return inventory().getJSONArray(Constants.SLOTS).getJSONObject(slotIndex).getInt(Constants.QUANTITY);
         } catch (JSONException e) {
             Log.d(TAG, "getIngredientQuantity: inventory json issue getting inv[SLOTS][int][QUANTITY]");
             return 0;
@@ -131,13 +157,9 @@ public class InventoryManager {
     }
 
     public static boolean canMakeRecipe(Recipe recipe) {
-        for (int i = 0; i < recipe.getNumIngredients(); i++) {
-            if (!hasQuantityOfIngredient(
-                    recipe.getIngredient(i).id,
-                    recipe.getIngredient(i).quantity_ml
-            ))
+        for (RecipeIngredient ing: recipe)
+            if (!hasQuantityOfIngredient(ing.getID(), ing.getQuantity_ml()))
                 return false;
-        }
 
         return true;
     }
