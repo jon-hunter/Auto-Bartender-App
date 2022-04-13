@@ -10,6 +10,7 @@ import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 
 
@@ -26,6 +27,8 @@ public abstract class HTTPGETBase extends Thread {
 
     public enum RequestStatus {
         IN_PROGRESS,
+        TIMEOUT,
+        FOUR_O_FOUR,
         DONE_SUCCESS,
         DONE_FAIL
     }
@@ -68,8 +71,8 @@ public abstract class HTTPGETBase extends Thread {
                 // ensure code is right
                 statusCode = connection.getResponseCode();
                 if (statusCode / 100 != 2) {
-                    Log.d(TAG, "run: failed. Not updating data");
-                    requestStatus.postValue(RequestStatus.DONE_FAIL);
+                    Log.d(TAG, "run: failed. Not updating data " + statusCode);
+                    requestStatus.postValue(RequestStatus.FOUR_O_FOUR);
                     return;
                 }
 
@@ -91,6 +94,9 @@ public abstract class HTTPGETBase extends Thread {
             } finally {
                 connection.disconnect();
             }
+        } catch (SocketTimeoutException e) {
+            Log.d(TAG, "run: timeout for GET request " + this.url + " - " + e.getLocalizedMessage());
+            this.requestStatus.postValue(RequestStatus.TIMEOUT);
         } catch (IOException e) {
             Log.d(TAG, "run: IOException for GET request " + this.url + " - " + e.getLocalizedMessage());
             this.requestStatus.postValue(RequestStatus.DONE_FAIL);

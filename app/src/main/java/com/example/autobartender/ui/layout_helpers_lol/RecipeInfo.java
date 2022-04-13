@@ -1,4 +1,4 @@
-package com.example.autobartender.ui;
+package com.example.autobartender.ui.layout_helpers_lol;
 
 import android.content.Context;
 import android.view.View;
@@ -17,9 +17,12 @@ import com.example.autobartender.utils.RecipeManager;
 import com.example.autobartender.utils.RecipeManager.Recipe;
 
 /**
- * not an activity or a fragment. used as an attribute of a viewholder
+ * No No its not an activity or a fragment.
+ * Its a set of UI that is reused in a couple of places and populates itself with data from a Recipe
+ * I think instantiating a fragment for every viewholder would just be too much and it would get messy
+ * used as an attribute of a viewholder
  */
-public class RecipeInfoHelper {
+public class RecipeInfo {
 
     // All the UI elements
     public ConstraintLayout rootView;
@@ -33,7 +36,7 @@ public class RecipeInfoHelper {
     public Button btnEdit;
     public ImageButton btnFav;
 
-    public RecipeInfoHelper(ConstraintLayout rootView) {
+    public RecipeInfo(ConstraintLayout rootView) {
         this.rootView = rootView;
         this.ivRecipeImg = rootView.findViewById(R.id.iv_recipe_main);
         this.tvRecipeName = rootView.findViewById(R.id.tv_recipe_name_full);

@@ -7,12 +7,17 @@
     android:layout_height="match_parent"
     tools:context=".ui.main_activity.MainActivity">
 
+        <include
+            android:id="@+id/include_no_network"
+            layout="@layout/helper_no_network_info"/>
+
         <Button
             android:id="@+id/btn_new_recipe"
             android:text="@string/new_recipe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/include_no_network"
+            app:layout_constraintBottom_toBottomOf="@id/barrier"
             app:layout_constraintEnd_toEndOf="parent"/>
 
         <Spinner
@@ -21,8 +26,27 @@
             android:spinnerMode="dropdown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/include_no_network"
+            app:layout_constraintBottom_toBottomOf="@id/barrier"
             app:layout_constraintEnd_toStartOf="@id/btn_new_recipe"/>
+
+        <TextView
+            android:id="@+id/tv_sort"
+            android:text="@string/sort"
+            android:padding="@dimen/default_padding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/include_no_network"
+            app:layout_constraintBottom_toBottomOf="@id/barrier"
+            app:layout_constraintEnd_toStartOf="@id/spinner_sort_order"/>
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier"
+            android:orientation="horizontal"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="btn_new_recipe, spinner_sort_order, tv_sort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rev_recipe_list"

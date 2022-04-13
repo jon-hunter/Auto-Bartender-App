@@ -10,6 +10,7 @@ import android.view.View;
 
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 
 import com.example.autobartender.ui.drink_queue.DrinkQueueFragment;
 import com.example.autobartender.R;
@@ -23,6 +24,7 @@ import com.example.autobartender.utils.DrinkQueueManager;
 import com.example.autobartender.utils.InventoryManager;
 import com.example.autobartender.utils.PrefsManager;
 import com.example.autobartender.utils.RecipeManager;
+import com.example.autobartender.utils.networking.NetworkStatusManager;
 
 public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener{
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -50,9 +52,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             public void onClick(View v) { launchSettingsActivity(); }
         });
 
-        // Setup the Recipe Manager
-        RecipeManager.loadRemote();
-        RecipeManager.loadLocalRecipes(getSharedPreferences(Constants.LOCAL_RECIPE_DB_SHAREDPREFS, MODE_PRIVATE));
+//        // Setup the Recipe Manager
+//        RecipeManager.loadRemote();
+//        RecipeManager.loadLocalRecipes(getSharedPreferences(Constants.LOCAL_RECIPE_DB_SHAREDPREFS, MODE_PRIVATE));
     }
 
 

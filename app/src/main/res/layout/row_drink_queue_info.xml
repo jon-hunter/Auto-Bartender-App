@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <include layout="@layout/drink_queue_info_thumb" />
+            <include layout="@layout/thumb_drink_queue_info" />
 
             <View
                 android:id="@+id/divider"
@@ -24,7 +24,7 @@
                 android:layout_height="1dp"
                 android:background="?android:attr/listDivider"/>
 
-            <include layout="@layout/recipe_info_full"
+            <include layout="@layout/helper_recipe_info_full"
                 android:id="@+id/recipe_info_full"/>
 
         </LinearLayout>

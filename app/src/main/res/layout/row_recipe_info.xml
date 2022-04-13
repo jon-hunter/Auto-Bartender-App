@@ -16,10 +16,10 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <include layout="@layout/recipe_info_thumb"
+            <include layout="@layout/thumb_recipe_info"
                 android:id="@+id/recipe_info_thumb"/>
 
-            <include layout="@layout/recipe_info_full"
+            <include layout="@layout/helper_recipe_info_full"
                 android:id="@+id/recipe_info_full"/>
 
         </LinearLayout>

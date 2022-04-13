@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Auto Bartender</string>
 
+    <!--    TODO sort and organize-->
+
     <!--    Menu bar labels and info-->
     <string name="title_activity_recipe_list">Recipe List</string>
     <string name="title_activity_inv_status">Inventory Status</string>
@@ -9,7 +11,7 @@
     <!--    default values-->
     <string name="default_title">Title</string>
     <string name="default_description">Description</string>
-    <string name="default_ingredient_list">• -- oz unknown ingredient\n• -- shots unknown ingredient</string>
+    <string name="default_ingredient_list">Ingredients unknown</string>
     <string name="default_ingredient_name">Unknown Ingredient</string>
     <string name="default_ingredient_amount">-- mL</string>
     <string name="default_recipe_name">Unknown Recipe</string>
@@ -19,17 +21,26 @@
     <!--    recipe list activity - sort orders are meant to be looked up by name - see RecipeManager.RecipeSortOrder-->
     <string name="order_button">Order this drink now</string>
     <string name="edit_drink">Edit Drink</string>
+    <string name="sort">Sort:</string>
     <string name="SORT_ORDER_ALPHABETICAL">Alphabetical</string>
     <string name="SORT_ORDER_RECENT">Most Recent</string>
     <string name="SORT_ORDER_ALC_CONTENT_HL">Proof ↘️</string>
     <string name="SORT_ORDER_ALC_CONTENT_LH">Proof ↗️</string>
     <string name="SORT_ORDER_DEFAULT">No Sorting</string>
-
-
-
-<!--    TODO sort and organize-->
     <string name="can_make_drink">Ready to make</string>
     <string name="cant_make_drink">Recipe unavailable</string>
+
+    <!--    Recipe editing activity-->
+    <string name="recipe_name">Recipe Name</string>
+    <string name="recipe_name_hint">Enter your recipe name here</string>
+    <string name="recipe_description">Recipe Description</string>
+    <string name="recipe_description_hint">Enter your recipe description here</string>
+    <string name="recipe_add_ingredient">Add Ingredient</string>
+    <string name="description_ingredient_amount">Amount of ingredient</string>
+    <string name="new_recipe">New Recipe</string>
+
+
+
 
     <string name="ingredient_list_row_mL">• %d mL %s \n</string>
 
@@ -105,12 +116,12 @@
     <string name="time_ago_m">%dm</string>
     <string name="time_ago_s">%ds</string>
 
-<!--    Recipe editing activity-->
-    <string name="recipe_name">Recipe Name</string>
-    <string name="recipe_name_hint">Enter your recipe name here</string>
-    <string name="recipe_description">Recipe Description</string>
-    <string name="recipe_description_hint">Enter your recipe description here</string>
-    <string name="recipe_add_ingredient">Add Ingredient</string>
-    <string name="description_ingredient_amount">Amount of ingredient</string>
-    <string name="new_recipe">New Recipe</string>
+<!--    network error info-->
+    <string name="default_network_error_main">Not connected to machine</string>
+    <string name="try_again">Try Again</string>
+    <string name="network_error_machine_timeout">Timeout connecting to machine - is it on? are you on the same network?</string>
+    <string name="network_error_machine_404">Client error connecting to machine (40x) - is your app up to date?</string>
+    <string name="network_error_machine_unknown">Something is wrong connecting to your machine but I have no idea what lmao good luck</string>
+    <string name="network_error_no_network">Cannot connect to wifi or data network. Idk, you gotta figure this one out yourself</string>
+    <string name="network_error_airplane_mode">You have wifi turned off or airplane mode on or something. Idk. You need a network connection to use this machine</string>
 </resources>

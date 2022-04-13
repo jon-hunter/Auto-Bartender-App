@@ -12,12 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.autobartender.R;
+import com.example.autobartender.ui.layout_helpers_lol.NoNetworkInfo;
 import com.example.autobartender.utils.DrinkQueueManager;
 import com.example.autobartender.utils.SimpleObserverManager;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link DrinkQueueFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class DrinkQueueFragment extends Fragment implements SimpleObserverManager.SimpleObserver {
@@ -25,6 +25,7 @@ public class DrinkQueueFragment extends Fragment implements SimpleObserverManage
 
     private RecyclerView rv;
     private DrinkQueue_RVA rva;
+    private NoNetworkInfo networkInfo;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -36,6 +37,10 @@ public class DrinkQueueFragment extends Fragment implements SimpleObserverManage
 
         // Register as drink queue observer
         DrinkQueueManager.observers.register(this);
+
+        // Initialize network status helper
+        this.networkInfo = new NoNetworkInfo(getActivity().findViewById(R.id.include_no_network));
+        this.networkInfo.hide();
 
         rv = getActivity().findViewById(R.id.rv_drink_queue);
         rv.setLayoutManager(new LinearLayoutManager(view.getContext()));

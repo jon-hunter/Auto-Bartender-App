@@ -6,10 +6,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.main_activity.MainActivity">
 
+    <include
+        android:id="@+id/include_no_network"
+        layout="@layout/helper_no_network_info"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_drink_queue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/include_no_network"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

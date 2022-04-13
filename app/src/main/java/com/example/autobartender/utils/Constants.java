@@ -41,6 +41,7 @@ public class Constants {
             MAX_QUANTITY = "MAX_QUANTITY",
             NAME = "NAME",
             NUM_SLOTS = "NUM_SLOTS",
+            PING = "PING",
             PROGRESS = "PROGRESS",
             QUANTITY = "QUANTITY",
             QUEUE = "QUEUE",
@@ -72,7 +73,8 @@ public class Constants {
             URLBASE_EMULATOR_HARDCODED = "http://10.0.2.2:8000/",
             URLBASE_DEFAULT = URLBASE_EMULATOR_HARDCODED,
             URL_PATH_INVENTORY = "./inventory",
-            URL_PATH_DRINK = "./drink";
+            URL_PATH_DRINK = "./drink",
+            URL_PATH_PING = "./ping";
 
     // Recipe database keys, URLs, etc,
     public static final String

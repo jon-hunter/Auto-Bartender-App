@@ -7,37 +7,24 @@
     android:layout_height="match_parent"
     tools:context=".ui.inventory_status.InventoryStatusFragment">
 
+    <include
+        android:id="@+id/include_no_network"
+        layout="@layout/helper_no_network_info"/>
+
     <TextView
         android:id="@+id/tv_slot"
         android:text="@string/slot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/default_padding"
-        app:layout_constraintTop_toTopOf="@id/btn_refresh"
-        app:layout_constraintBottom_toBottomOf="@id/btn_refresh"
+        app:layout_constraintTop_toBottomOf="@id/include_no_network"
         app:layout_constraintStart_toStartOf="parent"/>
-
-    <Button
-        android:id="@+id/btn_refresh"
-        android:text="@string/refresh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/barrier"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="bottom"
-        app:constraint_referenced_ids="tv_slot,btn_refresh"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_ingredients"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/barrier"
+        app:layout_constraintTop_toBottomOf="@id/tv_slot"
         app:layout_constraintStart_toStartOf="parent"
         />
 
