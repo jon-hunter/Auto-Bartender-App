@@ -121,11 +121,11 @@ public class DrinkQueue_RVA extends RecyclerView.Adapter<DrinkQueue_RVA.RowViewH
 
         // Set server status textview
         if (drink.inMachineQueue) {
-            holder.tvServerStatus.setText(R.string.server_sync_yes);
+            holder.tvServerStatus.setText(R.string.machine_sync_yes);
             holder.tvServerStatus.setBackgroundResource(R.drawable.status_good);
         }
         else {
-            holder.tvServerStatus.setText(R.string.server_sync_no);
+            holder.tvServerStatus.setText(R.string.machine_sync_no);
             holder.tvServerStatus.setBackgroundResource(R.drawable.status_bad);
         }
 

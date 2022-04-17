@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toolbar;
 
 
 import androidx.fragment.app.FragmentTransaction;
@@ -59,18 +60,26 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     //Navigation functions. These are event handlers (click or otherwise), either launching an activity or swapping out the main fragment view
     public void launchRecipeListFragment(View v) {
         Log.d(TAG, "launchRecipeListFragment: launching");
+        ((Toolbar) findViewById(R.id.toolbar)).setTitle(R.string.title_activity_recipe_list);
+
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.fragment_container, new RecipeListFragment());
         ft.commit();
     }
 
     public void launchInventoryStatsFragment(View v) {
+        Log.d(TAG, "launchInventoryStatsFragment: launching");
+        ((Toolbar) findViewById(R.id.toolbar)).setTitle(R.string.title_activity_inv_status);
+
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.fragment_container, new InventoryStatusFragment());
         ft.commit();
     }
 
-    public void launchDrinkMonitorFragment(View v) {
+    public void launchDrinkQueueFragment(View v) {
+        Log.d(TAG, "launchDrinkQueueFragment: launching");
+        ((Toolbar) findViewById(R.id.toolbar)).setTitle(R.string.title_activity_drink_queue);
+
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.fragment_container, new DrinkQueueFragment());
         ft.commit();

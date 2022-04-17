@@ -24,7 +24,7 @@
                 android:layout_height="1dp"
                 android:background="?android:attr/listDivider"/>
 
-            <include layout="@layout/recipe_info_full"
+            <include layout="@layout/helper_recipe_info"
                 android:id="@+id/recipe_info_full"/>
 
         </LinearLayout>

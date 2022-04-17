@@ -72,7 +72,7 @@ public class RecipeInfoHelper {
         this.tvIngList.setText(
                 RecipeManager.makeIngredientList(
                         recipe,
-                        ctx.getString(R.string.ingredient_list_row_mL),
+                        ctx.getString(R.string.ingredient_list_row_format_mL),
                         ctx
                 )
         );

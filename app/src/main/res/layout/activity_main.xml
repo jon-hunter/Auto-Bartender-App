@@ -28,6 +28,8 @@
         android:id="@+id/bottom_nav_btns"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent" >
 
         <Button
@@ -35,21 +37,24 @@
             android:text="@string/title_activity_recipe_list"
             android:onClick="launchRecipeListFragment"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            style="?android:attr/buttonBarButtonStyle" />
 
         <Button
             android:id="@+id/launch_inventory_monitor"
             android:text="@string/title_activity_inv_status"
             android:onClick="launchInventoryStatsFragment"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            style="?android:attr/buttonBarButtonStyle" />
 
         <Button
             android:id="@+id/launch_drink_monitor"
-            android:text="@string/title_activity_drink_status"
-            android:onClick="launchDrinkMonitorFragment"
+            android:text="@string/title_activity_drink_queue"
+            android:onClick="launchDrinkQueueFragment"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            style="?android:attr/buttonBarButtonStyle" />
 
     </LinearLayout>
 
