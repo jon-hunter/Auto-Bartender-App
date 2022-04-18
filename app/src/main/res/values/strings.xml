@@ -1,5 +1,8 @@
 <resources>
+
+    <!-- Main activity-->
     <string name="app_name">Auto Bartender</string>
+    <string name="btn_settings">Settings</string>
 
     <!--    various default values-->
     <string name="default_title">Title</string>
@@ -10,9 +13,11 @@
     <string name="default_recipe_name">Unknown Recipe</string>
     <string name="default_user">Unknown User</string>
     <string name="default_alcohol_content">Unknown Proof</string>
+    <string name="default_machine_name">Unknown Machine</string>
 
     <!--    recipe list activity - sort orders are meant to be looked up by name - see RecipeManager.RecipeSortOrder-->
     <string name="title_activity_recipe_list">Recipe List</string>
+    <string name="sort_by">Sort by:</string>
     <string name="SORT_ORDER_ALPHABETICAL">Alphabetical</string>
     <string name="SORT_ORDER_RECENT">Most Recent</string>
     <string name="SORT_ORDER_ALC_CONTENT_HL">Proof ↘️</string>
@@ -22,7 +27,9 @@
     <!--    inventory status activity-->
     <string name="title_activity_inv_status">Inventory Status</string>
     <string name="no_ingredient">No Ingredient Installed</string>
-    <string name="slot">Slot:</string>
+    <string name="format_slot_num">Slot %d:</string>
+    <string name="machine">Machine:</string>
+    <string name="machine_connection_not">Not connected</string>
     <string name="refresh">Refresh</string>
 
     <!--    drink queue activity-->
@@ -39,9 +46,15 @@
     <string name="recipe_name_hint">Enter your recipe name here</string>
     <string name="recipe_description">Recipe Description</string>
     <string name="recipe_description_hint">Enter your recipe description here</string>
+    <string name="recipe_amount_hint">Amount</string>
     <string name="recipe_add_ingredient">Add Ingredient</string>
     <string name="description_ingredient_amount">Amount of ingredient</string>
     <string name="new_recipe">New Recipe</string>
+    <array name="units">
+        <item>mL</item>
+        <item>oz</item>
+        <item>shots</item>
+    </array>
 
     <!-- RecipeInfo helper module thing-->
     <string name="order_button">Order this drink now</string>
@@ -57,10 +70,27 @@
     <!-- Preferences and Settings Activity-->
     <string name="title_activity_settings">Settings</string>
     <string name="pref_category_user_title">User Preferences</string>
+    <string name="pref_category_machine_title">Machine Preferences</string>
     <string name="pref_category_network_title">Network Data Preferences</string>
 
     <string name="pref_userID_title">Username</string>
     <string name="pref_userID_summary">Your username is used to identify you and keep track of which drinks belong to you</string>
+
+    <string name="pref_add_machine_title">Add a Machine</string>
+    <string name="pref_add_machine_summary">Add a new bartender machine with its unique ID and network address. And you can give it a fun name!</string>
+    <string name="pref_add_machine_id_hint">Your machine ID</string>
+    <string name="pref_add_machine_addr_hint">Your machine URL</string>
+    <string name="pref_add_machine_name_hint">A name for your machine</string>
+
+    <string name="pref_known_machines_title">Known Machines</string>
+    <string name="pref_known_machines_none">You don\'t have any known machines saved</string>
+    <string name="pref_known_machines_row_format">• %s - %s at %s\n</string>
+
+    <string name="pref_fav_machine_title">Favorite Machine</string>
+    <string name="pref_fav_machine_summary">Your favorite machine will be the default machine selected</string>
+
+    <string name="pref_delete_machine_title">Delete Machine</string>
+    <string name="pref_delete_machine_summary">Delete a machine from your list. You cannot undo this without manually re-adding it</string>
 
     <string name="pref_serverURL_title">Network Configuration</string>
     <string name="pref_serverURL_summary">Set appropriate networking parameters to enable connections between different configurations of this app and your Auto Bartender</string>

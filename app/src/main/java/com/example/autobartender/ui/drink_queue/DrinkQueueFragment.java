@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.autobartender.R;
+import com.example.autobartender.ui.helpers.MachineInfo;
 import com.example.autobartender.utils.DrinkQueueManager;
 import com.example.autobartender.utils.SimpleObserverManager;
 
@@ -23,6 +24,7 @@ import com.example.autobartender.utils.SimpleObserverManager;
 public class DrinkQueueFragment extends Fragment implements SimpleObserverManager.SimpleObserver {
     private static final String TAG = DrinkQueueFragment.class.getSimpleName();
 
+    private MachineInfo mi;
     private RecyclerView rv;
     private DrinkQueue_RVA rva;
 
@@ -37,6 +39,16 @@ public class DrinkQueueFragment extends Fragment implements SimpleObserverManage
         // Register as drink queue observer
         DrinkQueueManager.observers.register(this);
 
+        // init machine info
+        mi = new MachineInfo(view.findViewById(R.id.include_machine_info));
+        mi.init(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO handle refresh btn click
+            }
+        }, getContext());
+
+        // init the recyclerview
         rv = getActivity().findViewById(R.id.rv_drink_queue);
         rv.setLayoutManager(new LinearLayoutManager(view.getContext()));
         rva = new DrinkQueue_RVA(view.getContext());

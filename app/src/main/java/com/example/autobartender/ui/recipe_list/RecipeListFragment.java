@@ -52,9 +52,7 @@ public class RecipeListFragment extends Fragment {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                Log.d(TAG, "onNothingSelected: nothing selected");
-            }
+            public void onNothingSelected(AdapterView<?> parent) { }
         });
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 getContext(),

@@ -38,6 +38,9 @@ public class Constants {
             INDEX = "INDEX",
             INGREDIENT = "INGREDIENT",
             INGREDIENTS = "INGREDIENTS",
+            MACHINE_ADDR = "MACHINE_ADDR",
+            MACHINE_ID = "MACHINE_ID",
+            MACHINE_NAME = "MACHINE_NAME",
             MAX_QUANTITY = "MAX_QUANTITY",
             NAME = "NAME",
             NUM_SLOTS = "NUM_SLOTS",
@@ -96,9 +99,13 @@ public class Constants {
     };
 
 
-    // SharedPrefs identifiers
+    // SharedPrefs keys
     public static final String
             PREFS_USERID = "USER_ID",
+            PREFS_KNOWN_MACHINES = "KNOWN_MACHINES",
+            PREFS_FAVORITE_MACHINE_ID = "FAVORITE_MACHINE_ID",
+            PREFS_ADD_MACHINE = "ADD_MACHINE",
+            PREFS_DELETE_MACHINE = "DELETE_MACHINE",
             PREFS_SERVER_URL = "SERVER_URL",
             PREFS_RECIPE_DB_SOURCE = "RECIPE_DB_SOURCE",
             PREFS_INV_REFRESH_TM = "INV_REFRESH_TM",

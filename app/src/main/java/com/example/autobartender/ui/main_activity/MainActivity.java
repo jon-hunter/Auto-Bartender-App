@@ -6,18 +6,17 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toolbar;
 
 
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.autobartender.ui.drink_queue.DrinkQueueFragment;
 import com.example.autobartender.R;
 import com.example.autobartender.databinding.ActivityMainBinding;
 import com.example.autobartender.ui.inventory_status.InventoryStatusFragment;
 import com.example.autobartender.ui.prefs.SettingsActivity;
-import com.example.autobartender.ui.recipe_editor.RecipeEditorActivity;
 import com.example.autobartender.ui.recipe_list.RecipeListFragment;
 import com.example.autobartender.utils.Constants;
 import com.example.autobartender.utils.DrinkQueueManager;
@@ -30,6 +29,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate: hehe mainactivity oncreate");
+        
         super.onCreate(savedInstanceState);
 
         com.example.autobartender.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -99,17 +100,34 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             case Constants.PREFS_USERID:
                 PrefsManager.setUserID(sharedPreferences.getString(Constants.PREFS_USERID, null));
                 break;
+            case Constants.PREFS_ADD_MACHINE:
+                PrefsManager.addMachine(sharedPreferences.getString(Constants.PREFS_ADD_MACHINE, null), sharedPreferences);
+                break;
+            case Constants.PREFS_FAVORITE_MACHINE_ID:
+                PrefsManager.setFavoriteMachineId(sharedPreferences.getString(Constants.PREFS_FAVORITE_MACHINE_ID, null));
+                break;
+            case Constants.PREFS_DELETE_MACHINE:
+                Log.d(TAG, "onSharedPreferenceChanged: rquest to delete machine");
+                PrefsManager.deleteMachine(sharedPreferences.getString(Constants.PREFS_DELETE_MACHINE, null), sharedPreferences);
+                break;
             case Constants.PREFS_SERVER_URL:
                 PrefsManager.setUrlBase(sharedPreferences.getString(Constants.PREFS_SERVER_URL, Constants.URLBASE_DEFAULT));
-                InventoryManager.updateInventory();
+                InventoryManager.updateInventory();//TODO remove
                 DrinkQueueManager.updateDrinkQueue();
                 break;
             case Constants.PREFS_RECIPE_DB_SOURCE:
                 PrefsManager.setRecipeDBSource(sharedPreferences.getString(Constants.PREFS_RECIPE_DB_SOURCE, Constants.RECIPE_DB_KEY_DEFAULT));
                 RecipeManager.loadRemote();
+                break;
+            case Constants.PREFS_INV_REFRESH_TM:
+                PrefsManager.setMaxInventoryAge(sharedPreferences.getInt(Constants.PREFS_INV_REFRESH_TM, Constants.DEFAULT_MAX_AGE_INVENTORY));
+                break;
+            case Constants.PREFS_DQ_REFRESH_TM:
+                PrefsManager.setMaxDrinkQueueAge(sharedPreferences.getInt(Constants.PREFS_DQ_REFRESH_TM, Constants.DEFAULT_MAX_AGE_DRINK_QUEUE));
+                break;
+            default:
+                Log.d(TAG, "onSharedPreferenceChanged: TODO implement the pref change handler for " + key);
         }
-        PrefsManager.setMaxInventoryAge(sharedPreferences.getInt(Constants.PREFS_INV_REFRESH_TM, Constants.DEFAULT_MAX_AGE_INVENTORY));
-        PrefsManager.setMaxDrinkQueueAge(sharedPreferences.getInt(Constants.PREFS_DQ_REFRESH_TM, Constants.DEFAULT_MAX_AGE_DRINK_QUEUE));
 
     }
 }

@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.autobartender.R;
-import com.example.autobartender.ui.RecipeInfoHelper;
+import com.example.autobartender.ui.helpers.RecipeInfo;
 import com.example.autobartender.utils.Constants;
 import com.example.autobartender.utils.DrinkQueueManager;
 import com.example.autobartender.utils.DrinkQueueManager.Drink;
@@ -39,7 +39,7 @@ public class DrinkQueue_RVA extends RecyclerView.Adapter<DrinkQueue_RVA.RowViewH
         ImageView ivDropdownBtn;
 
         // helper for full info card UI elements
-        RecipeInfoHelper recipeInfoFull;
+        RecipeInfo recipeInfoFull;
 
 
 
@@ -55,7 +55,7 @@ public class DrinkQueue_RVA extends RecyclerView.Adapter<DrinkQueue_RVA.RowViewH
             this.pbProgress = itemView.findViewById(R.id.progressBar);
             this.ivDropdownBtn = itemView.findViewById(R.id.btn_expand);
 
-            this.recipeInfoFull = new RecipeInfoHelper(itemView.findViewById(R.id.recipe_info_full));
+            this.recipeInfoFull = new RecipeInfo(itemView.findViewById(R.id.recipe_info_full));
 
             // hide full info view, its image, and redundent title
             this.collapseInfo();

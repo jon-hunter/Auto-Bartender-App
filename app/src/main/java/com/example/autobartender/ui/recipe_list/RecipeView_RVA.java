@@ -1,7 +1,6 @@
 package com.example.autobartender.ui.recipe_list;
 
 import android.content.Context;
-import android.graphics.ImageDecoder;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,18 +11,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.autobartender.R;
-import com.example.autobartender.ui.RecipeInfoHelper;
+import com.example.autobartender.ui.helpers.RecipeInfo;
 import com.example.autobartender.utils.Constants;
 import com.example.autobartender.utils.networking.HTTPGETBase.RequestStatus;
 import com.example.autobartender.utils.PrefsManager;
 import com.example.autobartender.utils.RecipeManager;
 import com.example.autobartender.utils.RecipeManager.Recipe;
 import com.example.autobartender.utils.networking.HTTPGETImage;
-import com.example.autobartender.utils.networking.HTTPGETJSONObject;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -50,7 +47,7 @@ public class RecipeView_RVA extends RecyclerView.Adapter<RecipeView_RVA.RowViewH
         ImageView ivThumbnail;
 
         // helper for full info card
-        RecipeInfoHelper recipeInfoFull;
+        RecipeInfo recipeInfoFull;
 
         public RowViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -61,7 +58,7 @@ public class RecipeView_RVA extends RecyclerView.Adapter<RecipeView_RVA.RowViewH
             this.tvDescription = (TextView)itemView.findViewById(R.id.tv_description_thumb);
             this.ivThumbnail = (ImageView) itemView.findViewById(R.id.iv_thumbnail);
 
-            this.recipeInfoFull = new RecipeInfoHelper(itemView.findViewById(R.id.recipe_info_full));
+            this.recipeInfoFull = new RecipeInfo(itemView.findViewById(R.id.recipe_info_full));
 
             // hide full info view
             this.collapseInfo();

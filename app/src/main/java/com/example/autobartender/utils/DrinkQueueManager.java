@@ -83,6 +83,9 @@ public class DrinkQueueManager {
         observers = new SimpleObserverManager();
         drinkQueue = new ArrayList<Drink>();
         requestThread = null;
+
+        // Observe machine selection - if it changes we need to update
+        PrefsManager.getCurrentSelectedMachineID().observeForever(s -> updateDrinkQueue());
     }
 
 

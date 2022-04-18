@@ -7,37 +7,15 @@
     android:layout_height="match_parent"
     tools:context=".ui.inventory_status.InventoryStatusFragment">
 
-    <TextView
-        android:id="@+id/tv_slot"
-        android:text="@string/slot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/default_padding"
-        app:layout_constraintTop_toTopOf="@id/btn_refresh"
-        app:layout_constraintBottom_toBottomOf="@id/btn_refresh"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <Button
-        android:id="@+id/btn_refresh"
-        android:text="@string/refresh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/barrier"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="bottom"
-        app:constraint_referenced_ids="tv_slot,btn_refresh"/>
+    <include
+        android:id="@+id/include_machine_info"
+        layout="@layout/helper_machine_info"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_ingredients"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/barrier"
+        app:layout_constraintTop_toBottomOf="@id/include_machine_info"
         app:layout_constraintStart_toStartOf="parent"
         />
 

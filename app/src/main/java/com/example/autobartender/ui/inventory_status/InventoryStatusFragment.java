@@ -12,14 +12,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.example.autobartender.R;
+import com.example.autobartender.ui.helpers.MachineInfo;
 import com.example.autobartender.utils.InventoryManager;
 import com.example.autobartender.utils.SimpleObserverManager;
 
 public class InventoryStatusFragment extends Fragment implements SimpleObserverManager.SimpleObserver {
     private final String TAG = InventoryStatusFragment.class.getName();
 
+    private MachineInfo mi;
     private RecyclerView rv;
     private InventoryStatus_RVA rva;
 
@@ -35,8 +38,18 @@ public class InventoryStatusFragment extends Fragment implements SimpleObserverM
         // Register as inventory observer
         InventoryManager.observers.register(this);
 
+        // init machine info
+        LinearLayout temp = view.findViewById(R.id.include_machine_info);
+        mi = new MachineInfo(temp);
+        mi.init(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO handle refresh btn click
+            }
+        }, getContext());
+
         // init the recyclerview
-        rv = getActivity().findViewById(R.id.rv_ingredients);
+        rv = view.findViewById(R.id.rv_ingredients);
         rv.setLayoutManager(new LinearLayoutManager(view.getContext()));
         rva = new InventoryStatus_RVA(view.getContext());
         rv.setAdapter(rva);

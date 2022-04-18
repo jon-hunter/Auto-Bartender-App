@@ -37,6 +37,9 @@ public class InventoryManager {
         observers = new SimpleObserverManager();
         inventory = new JSONObject();
         requestThread = null;
+
+        // Observe machine selection - if it changes we need to update
+        PrefsManager.getCurrentSelectedMachineID().observeForever(s -> updateInventory());
     }
 
 
